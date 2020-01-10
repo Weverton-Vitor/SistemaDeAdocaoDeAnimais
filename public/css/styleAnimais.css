@@ -1,0 +1,108 @@
+/* Estilos gerais e do layout*/
+body{
+    background-image: url("../img/cat_and_dog.jpg");
+    background-size: 100% 100%;    
+}
+
+.borda-container{
+    border-left: #bfbcbc 1px solid;
+    border-right: #bfbcbc 1px solid;
+    border-bottom: #bfbcbc 1px solid;
+}
+
+.container-layout{
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 30px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
+
+.menu{
+    margin-top: 10px;
+    padding-left: 0px;
+    padding-bottom: 0px;
+    border-top-left-radius:  30px;
+    border-top-right-radius: 30px;
+    border: #bfbcbc 1px solid;
+
+}
+
+.menu ul{    
+    padding: 20px;
+    border-top-left-radius:  30px;
+    border-top-right-radius: 30px;    
+}
+
+.item{
+    margin-right: 10px;
+    padding-right: 5px;
+    border-right:  #bfbcbc 1px solid;
+    border-bottom:  #bfbcbc 1px solid;
+}
+
+.itemAtivo{
+    background-color:  #d5d2d1;
+    border-right:   #717171  1px solid;
+    border-bottom:   #717171  1px solid;
+}
+
+.item:hover{
+    background-color:  #8d8c8b;
+    font-size: 17px;    
+}
+
+.text{
+    font-weight: bold;
+    color: #007bff;
+}
+
+.btn-fechar-aviso{
+    font-weight: bold;
+    text-decoration: none;
+    color: red;
+}
+
+/* Estilos para a página index*/
+.tabela-index{
+    border-radius: 30px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+img.iconeAcao{
+    height: 20px;
+    width: 20px;
+}
+
+img.iconeAcao:hover{
+    height: 25px;
+    width: 25px;
+
+}
+
+/*Estilos da página create*/
+.container-create{
+    border-radius: 30px;
+    padding: 20px;    
+    border-top-left-radius:  0px;
+    border-top-right-radius: 0px; 
+}
+
+.input{
+    margin-bottom: 10px;
+    margin-top: -5px;
+}
+
+/*Estilos da página view*/
+.container-view{
+    border-radius: 30px;
+    padding: 20px;
+    border-top-left-radius:  0px;
+    border-top-right-radius: 0px;  
+}
+
+#img-animal{
+    width: 260px;
+    height: 260px;
+}
