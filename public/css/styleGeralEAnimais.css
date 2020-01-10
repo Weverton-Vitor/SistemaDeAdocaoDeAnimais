@@ -22,9 +22,10 @@ body{
     margin-top: 10px;
     padding-left: 0px;
     padding-bottom: 0px;
+    border-radius: 0px;
     border-top-left-radius:  30px;
     border-top-right-radius: 30px;
-    border: #bfbcbc 1px solid;
+    border: #bfbcbc 1px solid;    
 
 }
 
@@ -82,8 +83,7 @@ img.iconeAcao:hover{
 }
 
 /*Estilos da página create*/
-.container-create{
-    border-radius: 30px;
+.container-create{    
     padding: 20px;    
     border-top-left-radius:  0px;
     border-top-right-radius: 0px; 
@@ -95,8 +95,7 @@ img.iconeAcao:hover{
 }
 
 /*Estilos da página view*/
-.container-view{
-    border-radius: 30px;
+.container-view{    
     padding: 20px;
     border-top-left-radius:  0px;
     border-top-right-radius: 0px;  

@@ -13,12 +13,12 @@ class PedidoAdocao extends Model
         
     public function animal()
     {
-        $this->belongsTo('\App\Models\Animal');
+        return $this->belongsTo('\App\Models\Animal');
     }
 
     public function ederecoAdotador()
     {
-        $this->belongsTo('\App\Models\EnderecoAdotador', 'endereco_adotador_id');
+       return $this->belongsTo('\App\Models\EnderecoAdotador', 'endereco_adotador_id');
     }
 
 

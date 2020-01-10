@@ -1,0 +1,10 @@
+.container-pedidos{
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+
+.pedidos{
+    padding: 10px;
+}
+
+/*Estilos para a página de novos pedidos*/

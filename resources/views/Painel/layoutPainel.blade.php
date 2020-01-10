@@ -5,7 +5,8 @@
         <meta name="viewport" content="width-device-width, initial-scale=1.0"/>
         <title> {{$cvTitlePage ?? "Titulo da página"}}</title>
         <link rel="stylesheet" href="{{ url('/bootstrap-4.4.1-dist/css/bootstrap.min.css') }}">      
-        <link rel="stylesheet" href="{{url('/css/styleAnimais.css')}}">
+        <link rel="stylesheet" href="{{url('/css/styleGeralEAnimais.css')}}">
+        <link rel="stylesheet" href="{{url('/css/stylePedidosAdocao.css')}}">
         <script src="{{ url('/bootstrap-4.4.1-dist/js/jquery-3.4.1.min.js') }}"></script>
         <script src="{{ url('/bootstrap-4.4.1-dist/js/bootstrap.min.js') }}"></script>
         <script src="{{ url('/bootstrap-4.4.1-dist/js/jQuery-Mask-Plugin/dist/jquery.mask.min.js') }}"></script>
@@ -29,14 +30,14 @@
                         @else
                         <li class="nav-item item ">
                         @endif
-                            <a class="nav-link text" href="{{route($cvRoute.'.index')}}">Página Inicial</a>
+                            <a class="nav-link text" href="{{route('Animais.index')}}">Página Inicial</a>
                         </li>
                         @if(isset($activeCreate))
                         <li class="nav-item item itemAtivo">
                         @else
                         <li class="nav-item item ">
                         @endif
-                            <a class="nav-link text" href="{{route($cvRoute.'.create')}}">Novo Animal</a>
+                            <a class="nav-link text" href="{{route('Animais.create')}}">Novo Animal</a>
                         </li>
                         @if(isset($active))
                         <li class="nav-item item itemAtivo">

@@ -22,9 +22,9 @@ class PedidoAdocaoController extends Controller {
 
     //
     public function index() {        
-        $this->cvData['vcObjects'] = $this->model::orderBy('data_pedido')->paginate($this->total_page);
+        $this->cvData['pedidos'] = $this->model::orderBy('data_pedido')->with('animal')->paginate($this->total_page);
         //Total de novos pedidos
-        $this->cvData['nNovosPedidos'] = count( $this->cvData['vcObjects'] = $this->model::orderBy('data_pedido')->where('situacao', 'P'));
+        $this->cvData['nNovosPedidos'] = count( $this->cvData['vcObjects'] = $this->model::orderBy('data_pedido')->where('situacao', 'P')->get());
         return view($this->cvData['cvViewDirectory'] . '.index', $this->cvData);
     }
 
