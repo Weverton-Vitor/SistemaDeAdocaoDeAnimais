@@ -12,9 +12,9 @@
             </div>
             <div class="col-4">
                 <div class="float-right" style="margin-top: 160px">
-                    <a class="btn btn-primary" href="#">Ver detalhes</a>
-                    <a class="btn btn-success" href="#">Aprovar</a>
-                    <a class="btn btn-danger" href="#">Não aprovar</a>
+                    <a class="btn btn-primary" href="{{route($cvRoute.'.show', $pedido->id)}}">Ver detalhes</a>
+                    <a class="btn btn-success" href="{{route($cvRoute.'.aceitarPedido', $pedido->id)}}">Aprovar</a>
+                    <a class="btn btn-danger" href="{{route($cvRoute.'.recusarPedido', $pedido->id)}}">Não aprovar</a>
                 </div>
             </div>
         </div>

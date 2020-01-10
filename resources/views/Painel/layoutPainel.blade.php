@@ -25,7 +25,7 @@
             <div class="col-12">                    
                 <nav class="navbar navbar-expand-sm menu bg-light">
                     <ul class="nav bg-light">
-                        @if(isset($activeIndex))
+                        @if(isset($activeIndexAnimal))
                         <li class="nav-item item itemAtivo">
                         @else
                         <li class="nav-item item ">
@@ -39,7 +39,7 @@
                         @endif
                             <a class="nav-link text" href="{{route('Animais.create')}}">Novo Animal</a>
                         </li>
-                        @if(isset($active))
+                        @if(isset($activeIndexNovoPedido))
                         <li class="nav-item item itemAtivo">
                         @else
                         <li class="nav-item item ">

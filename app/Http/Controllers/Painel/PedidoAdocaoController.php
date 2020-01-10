@@ -16,13 +16,14 @@ class PedidoAdocaoController extends Controller {
         $this->model = $model;
         $this->cvData['cvRoute'] = 'PedidosAdocao';
         $this->cvData['cvViewDirectory'] = 'Painel.PedidosAdocao';
-        $this->cvData['cvHeaderPage'] = "Pedidos de adoçao";
+        $this->cvData['cvHeaderPage'] = "Pedidos de adoção";
         $this->cvData['cvTitlePage'] = $this->cvData['cvHeaderPage'];
     }
 
     //
     public function index() {        
-        $this->cvData['pedidos'] = $this->model::orderBy('data_pedido')->with('animal')->paginate($this->total_page);
+        $this->cvData['activeIndexNovoPedido'] = true;
+        $this->cvData['pedidos'] = $this->model::orderBy('data_pedido')->where('situacao', 'P')->with('animal')->paginate($this->total_page);
         //Total de novos pedidos
         $this->cvData['nNovosPedidos'] = count( $this->cvData['vcObjects'] = $this->model::orderBy('data_pedido')->where('situacao', 'P')->get());
         return view($this->cvData['cvViewDirectory'] . '.index', $this->cvData);
@@ -142,6 +143,31 @@ class PedidoAdocaoController extends Controller {
         $this->cvData['vcObjects'] = $this->model->searchGrid($searchCriteria, $total_page);
 
         return view($this->cvData['cvViewDirectory'] . '.index', $this->cvData);
+    }
+
+    // Aceita o pedido de adoção
+    public function aceitarPedidoAdocao($id)
+    {
+        $pedido = $this->model->find($id);
+        $pedido->situacao = "A";
+        $pedido->save();
+
+        return redirect()->
+                        route($this->cvData['cvRoute'] . '.index')->
+                        with('success', 'Pedido aceito com sucesso!');
+
+    }
+
+    // Recusa o pedido de adoção
+    public function recusarPedidoAdocao($id)
+    {
+        $pedido = $this->model->find($id);
+        $pedido->situacao = "N";
+        $pedido->save();
+
+        return redirect()->
+                route($this->cvData['cvRoute'] . '.index')->
+                with('success', 'Pedido recusado com sucesso!');
     }
 
 }
