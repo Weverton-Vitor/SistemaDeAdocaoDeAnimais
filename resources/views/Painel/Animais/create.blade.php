@@ -2,7 +2,7 @@
 @section('conteudo')             
 <div class="container bg-light container-create borda-container">
 	@if(isset($animal))
-	<div id="aviso-imagem" class="collapse show">
+	<!--div id="aviso-imagem" class="collapse show">
 		<div class="row alert alert-info" style="margin-left: 0px; margin-right: 0px">			
 			<div class="col-11">
 				Para editar a imagem de um animal basta acessar a página de visualização individual dele!
@@ -13,7 +13,7 @@
 				</a>
 			</div>				
 		</div>
-	</div>	
+	</div -->	
 	@endif
 	<div class="row">
 		<div class="col-12">
