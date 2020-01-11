@@ -76,7 +76,7 @@
 </div>
 <script>
 	$(document).ready(function(){
-		$('.peso').mask('000.00');//Máscara para o peso
+		$('.peso').mask('0.00');//Máscara para o peso
 		$('.altura').mask('000');//Máscara para a altura
 	})
 </script>

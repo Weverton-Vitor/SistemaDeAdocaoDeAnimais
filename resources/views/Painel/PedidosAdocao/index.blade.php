@@ -9,9 +9,10 @@
                 <p class="text">Telefone do adotador: {{$pedido->telefone_adotador}}</p>
                 <p class="text">Email do adotador: {{$pedido->email_adotador}}</p>
                 <p class="text">Nome do Animal: {{$pedido->animal->nome}}</p>
+                <p class="text">Data do pedido: {{date("d/m/Y", (strtotime($pedido->data_pedido)))}}</p>
             </div>
             <div class="col-4">
-                <div class="float-right" style="margin-top: 160px">
+                <div class="float-right" style="margin-top: 200px">
                     <a class="btn btn-primary" href="{{route($cvRoute.'.show', $pedido->id)}}">Ver detalhes</a>
                     <a class="btn btn-success" href="{{route($cvRoute.'.aceitarPedido', $pedido->id)}}">Aprovar</a>
                     <a class="btn btn-danger" href="{{route($cvRoute.'.recusarPedido', $pedido->id)}}">Não aprovar</a>

@@ -39,8 +39,8 @@
                     </div>
                     <div class="col-6">                    
                         <p class="text"> Nome: {{$pedido->animal->nome}}</p>
-                        <p class="text"> Peso: {{$pedido->animal->peso}}</p>
-                        <p class="text"> Altura: {{$pedido->animal->altura}}</p>
+                        <p class="text"> Peso: {{$pedido->animal->peso}} Kg</p>
+                        <p class="text"> Altura: {{$pedido->animal->altura}} cm</p>
                         <p class="text"> Tipo de Animal: {{$pedido->animal->tipo->nome}}</p>
                         <p class="text"> Raça: {{$pedido->animal->raca}}</p>
                         <p class="text">Situação Médica: {{$pedido->animal->situacao_medica}}</p>			
