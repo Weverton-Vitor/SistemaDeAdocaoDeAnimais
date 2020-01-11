@@ -3,8 +3,8 @@
 <div class="container-view bg-light borda-container container-pedidos">
     <div class="row">
         <div class="col-6">
-            <section class="dados-pedidos">
-                <h2 class="text text-center">Dados do adotante</h2>
+            <section class="dados-pedidos" style=" margin-bottom: 30px; padding-bottom: 20px">
+                <h3 class="text text-center">Dados do adotante</h3>
                 <hr class="linha-titulo">
                 <div class="row">      
                     <div class="col-7">
@@ -16,16 +16,20 @@
                     </div>
                     <div class="col-5">
                         <p class="text">Cidade:<br> {{$pedido->enderecoAdotante->cidade}}</p>
+                        <p class="text">CEP:<br> {{$pedido->enderecoAdotante->cep}}</p>
                         <p class="text">Bairro:<br> {{$pedido->enderecoAdotante->bairro}}</p>
                         <p class="text">Rua:<br> {{$pedido->enderecoAdotante->rua}}</p>
                         <p class="text">Número da casa:<br> {{$pedido->enderecoAdotante->numero_casa}}</p>
                     </div>                       		
                 </div>
             </section>
+            @if(isset($activeIndexTodosPedidos))
+            <a class="btn btn-danger" href="{{route($cvRoute.'.destroy', $pedido->id)}}">Excluir</a>
+            @endif
         </div>
         <div class="col-6">
             <section class="dados-pedidos">
-                <h2 class="text text-center">Dados do animal</h2>
+                <h3 class="text text-center">Dados do animal</h3>
                 <hr class="linha-titulo">
                 <div class="row">
                     <div class="col-6">                
@@ -43,17 +47,27 @@
                         <p class="text"> Altura: {{$pedido->animal->altura}} cm</p>
                         <p class="text"> Tipo de Animal: {{$pedido->animal->tipo->nome}}</p>
                         <p class="text"> Raça: {{$pedido->animal->raca}}</p>
-                        <p class="text">Situação Médica: {{$pedido->animal->situacao_medica}}</p>			
+                        <p class="text"> Situação Médica: {{$pedido->animal->situacao_medica}}</p>	                        		
                     </div>
                 </div>
             </section>
+            @if(isset($activeIndexTodosPedidos))
+            <section class="dados-pedidos">
+                <h3 class="text text-center"> Situação do pedido</h3>
+                <hr class="linha-titulo">
+                <p class="text"> Situação do pedido: {{$pedido->situacao == 'A' ? 'Aprovado' : $pedido->situacao == 'P' ? 'Não analizado' : 'Não aprovado'}}</p>
+                <p class="text"> Informações adicionais: {{empty($pedido->informacoes_adicionais) ? 'Sem informações adicionais' : $pedido->informacoes_adicionais}}</p>
+            </section>
+            @endif
         </div>
-    </div>    
+    </div>   
 	<div class="row">
-		<div class="col-12">					
+        <div class="col-12">					
+            @if(!isset($activeIndexTodosPedidos)) 
             <a class="btn btn-success" href="{{route($cvRoute.'.aceitarPedido', $pedido->id)}}">Aprovar</a>
-            <a class="btn btn-danger" href="{{route($cvRoute.'.recusarPedido', $pedido->id)}}">Não aprovar</a>
+            <a class="btn btn-danger" href="{{route($cvRoute.'.recusarPedido', $pedido->id)}}">Não aprovar</a>                        
+            @endif
 		</div>
-	</div>
+    </div>
 </div>
 @endsection

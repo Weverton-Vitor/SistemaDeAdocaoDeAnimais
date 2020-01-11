@@ -44,19 +44,19 @@
                         @else
                         <li class="nav-item item ">
                         @endif
-                            <a class="nav-link text" href="{{route('PedidosAdocao.index')}}">
+                            <a class="nav-link text" href="{{route('PedidosAdocao.index', ['novosPedidos' => 'true'])}}">
                                 Novos pedidos de adoção
                                 <span style="background-color: red; color: white; font-size: 14px ;padding: 5px; border-radius:100%">
                                     {{$nNovosPedidos}}
                                 </span>
                             </a>
                         </li>
-                        @if(isset($active))
+                        @if(isset($activeIndexTodosPedidos))
                         <li class="nav-item item itemAtivo">
                         @else
                         <li class="nav-item item ">
                         @endif
-                            <a class="nav-link text" href="">Todos os pedidos de adoção</a>
+                            <a class="nav-link text" href="{{route('PedidosAdocao.index')}}">Todos os pedidos de adoção</a>
                         </li>
                     </ul>
                 </nav>

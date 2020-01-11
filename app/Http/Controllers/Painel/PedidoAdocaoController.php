@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Painel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\PedidoAdocao;
+use App\Models\Animal;
 
 class PedidoAdocaoController extends Controller {
 
@@ -21,9 +22,16 @@ class PedidoAdocaoController extends Controller {
     }
 
     //
-    public function index() {        
-        $this->cvData['activeIndexNovoPedido'] = true;
-        $this->cvData['pedidos'] = $this->model::orderBy('data_pedido')->where('situacao', 'P')->with('animal')->paginate($this->total_page);
+    public function index(Request $request) 
+    {              
+        if (!is_null($request->input('novosPedidos')))// Resgata apenas novos registros
+        {
+            $this->cvData['pedidos'] = $this->model::orderBy('data_pedido')->where('situacao', 'P')->with('animal')->paginate($this->total_page);   
+            $this->cvData['activeIndexNovoPedido'] = true;
+        } else {
+            $this->cvData['pedidos'] = $this->model::orderBy('data_pedido')->with('animal')->paginate($this->total_page);   
+            $this->cvData['activeIndexTodosPedidos'] = true;
+        }
         //Total de novos pedidos
         $this->cvData['nNovosPedidos'] = count( $this->cvData['vcObjects'] = $this->model::orderBy('data_pedido')->where('situacao', 'P')->get());
         return view($this->cvData['cvViewDirectory'] . '.index', $this->cvData);
@@ -61,9 +69,12 @@ class PedidoAdocaoController extends Controller {
     }
 
     //
-    public function show($id) 
-    {
-        $this->cvData['pedido'] = $this->model->find($id)->with('animal', 'enderecoAdotante')->get()->first();
+    public function show($id, Request $request) 
+    {                
+        if (!is_null($request->input('activeIndexTodosPedidos'))) {
+            $this->cvData['activeIndexTodosPedidos'] = true;
+        }
+        $this->cvData['pedido'] = $this->model->with('animal', 'enderecoAdotante')->find($id);        
         $this->cvData['nNovosPedidos'] = count($this->cvData['vcObjects'] = PedidoAdocao::where('situacao', 'P')->orderBy('data_pedido')->get());
         $this->cvData['cvHeaderPage'] = "Pedido de adoção: ".$this->cvData['pedido']->animal->nome;
         $this->cvData['cvTitlePage'] = $this->cvData['cvHeaderPage'];
@@ -152,10 +163,16 @@ class PedidoAdocaoController extends Controller {
 
     // Aceita o pedido de adoção
     public function aceitarPedidoAdocao($id)
-    {
-        $pedido = $this->model->find($id);
+    {        
+        // Alterando a situação do pedido para aprovado
+        $pedido = $this->model->find($id);        
         $pedido->situacao = "A";
         $pedido->save();
+
+        // Alteranp a situação de adoção do animal para adotado
+        $animal = Animal::find($pedido->animal_id);
+        $animal->situacao_adocao = "S";
+        $animal->save();
 
         return redirect()->
                         route($this->cvData['cvRoute'] . '.index')->

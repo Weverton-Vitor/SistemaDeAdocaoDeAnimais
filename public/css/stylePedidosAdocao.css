@@ -7,6 +7,11 @@
     padding: 10px;
 }
 
+.situacao-pedido{
+    padding: 11px;
+    font-size: 14px;
+}
+
 /*Estilos para a página de novos pedidos*/
 
 
@@ -18,7 +23,7 @@
 }
 .dados-pedidos{
     padding: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 5px;   
     border-radius: 30px;
     border: #bfbcbc 1px solid;  
 }
