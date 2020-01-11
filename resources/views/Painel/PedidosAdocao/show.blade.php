@@ -4,21 +4,21 @@
     <div class="row">
         <div class="col-6">
             <section class="dados-pedidos">
-                <h2 class="text text-center">Dados do adotador</h2>
+                <h2 class="text text-center">Dados do adotante</h2>
                 <hr class="linha-titulo">
                 <div class="row">      
                     <div class="col-7">
-                        <p class="text">Nome do adotador:<br> {{$pedido->nome_adotador}}</p>
-                        <p class="text">CPF do adotador:<br> {{$pedido->cpf_adotador}}</p>
-                        <p class="text">Telefone do adotador:<br> {{$pedido->telefone_adotador}}</p>
-                        <p class="text">Email do adotador:<br> {{$pedido->email_adotador}}</p>
+                        <p class="text">Nome do adotante:<br> {{$pedido->nome_adotante}}</p>
+                        <p class="text">CPF do adotante:<br> {{$pedido->cpf_adotante}}</p>
+                        <p class="text">Telefone do adotante:<br> {{$pedido->telefone_adotante}}</p>
+                        <p class="text">Email do adotante:<br> {{$pedido->email_adotante}}</p>
                         <p class="text">Data do pedido:<br> {{date("d/m/Y", (strtotime($pedido->data_pedido)))}}</p>
                     </div>
                     <div class="col-5">
-                        <p class="text">Cidade:<br> {{$pedido->enderecoAdotador->cidade}}</p>
-                        <p class="text">Bairro:<br> {{$pedido->enderecoAdotador->bairro}}</p>
-                        <p class="text">Rua:<br> {{$pedido->enderecoAdotador->rua}}</p>
-                        <p class="text">Número da casa:<br> {{$pedido->enderecoAdotador->numero_casa}}</p>
+                        <p class="text">Cidade:<br> {{$pedido->enderecoAdotante->cidade}}</p>
+                        <p class="text">Bairro:<br> {{$pedido->enderecoAdotante->bairro}}</p>
+                        <p class="text">Rua:<br> {{$pedido->enderecoAdotante->rua}}</p>
+                        <p class="text">Número da casa:<br> {{$pedido->enderecoAdotante->numero_casa}}</p>
                     </div>                       		
                 </div>
             </section>

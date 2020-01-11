@@ -4,10 +4,10 @@
     @foreach($pedidos as $pedido)
         <div class="row borda-container pedidos">            
             <div class="col-8">
-                <p class="text">Nome do adotador: {{$pedido->nome_adotador}}</p>
-                <p class="text">CPF do adotador: {{$pedido->cpf_adotador}}</p>
-                <p class="text">Telefone do adotador: {{$pedido->telefone_adotador}}</p>
-                <p class="text">Email do adotador: {{$pedido->email_adotador}}</p>
+                <p class="text">Nome do adotante: {{$pedido->nome_adotante}}</p>
+                <p class="text">CPF do adotante: {{$pedido->cpf_adotante}}</p>
+                <p class="text">Telefone do adotante: {{$pedido->telefone_adotante}}</p>
+                <p class="text">Email do adotante: {{$pedido->email_adotante}}</p>
                 <p class="text">Nome do Animal: {{$pedido->animal->nome}}</p>
                 <p class="text">Data do pedido: {{date("d/m/Y", (strtotime($pedido->data_pedido)))}}</p>
             </div>

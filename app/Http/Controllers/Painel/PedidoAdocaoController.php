@@ -63,7 +63,7 @@ class PedidoAdocaoController extends Controller {
     //
     public function show($id) 
     {
-        $this->cvData['pedido'] = $this->model->find($id)->with('animal', 'enderecoAdotador')->get()->first();
+        $this->cvData['pedido'] = $this->model->find($id)->with('animal', 'enderecoAdotante')->get()->first();
         $this->cvData['nNovosPedidos'] = count($this->cvData['vcObjects'] = PedidoAdocao::where('situacao', 'P')->orderBy('data_pedido')->get());
         $this->cvData['cvHeaderPage'] = "Pedido de adoção: ".$this->cvData['pedido']->animal->nome;
         $this->cvData['cvTitlePage'] = $this->cvData['cvHeaderPage'];

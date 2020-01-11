@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class PedidoAdocao extends Model
 {
     protected $table = 'pedido_adocao';
-    protected $fillable = ['nome_adotador', 'cpf_adotador', 'telefone_adotador',
-                           'email_adotador', 'endereco_adotador_id', 'situacao', 
+    protected $fillable = ['nome_adotante', 'cpf_adotante', 'telefone_adotante',
+                           'email_adotante', 'endereco_adotante_id', 'situacao', 
                            'informacoes_adicionais', 'animal_id', 'updated_at', 'created_up'];
         
     public function animal()
@@ -16,9 +16,9 @@ class PedidoAdocao extends Model
         return $this->belongsTo('\App\Models\Animal');
     }
 
-    public function enderecoAdotador()
+    public function enderecoAdotante()
     {
-       return $this->belongsTo('\App\Models\EnderecoAdotador', 'endereco_adotador_id');
+       return $this->belongsTo('\App\Models\EnderecoAdotante', 'endereco_adotante_id');
     }
 
 

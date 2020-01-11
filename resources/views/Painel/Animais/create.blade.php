@@ -28,7 +28,7 @@
 				<input type="text" name="nome" class="form-control input" placeholder="Ex: Max" value="{{ $animal->nome  ??old('nome')}}" required="" maxlength="30">
 
                 <label class="text" for="peso">Peso:</label>
-                <input type="text" name="peso" class="form-control peso input" placeholder="Ex: 001.20(1kg e 20g)" value="{{ $animal->peso  ?? old('peso')}}" required="">
+                <input type="text" name="peso" class="form-control peso input" placeholder="Ex: 1.20(1kg e 20g)" value="{{ $animal->peso  ?? old('peso')}}" required="">
 
 				<label class="text" for="altura">Altura:</label>
 				<input type="text" name="altura" class="form-control altura input" placeholder="Ex: 63 cm(não é necessário a unidade de medida)" value="{{ $animal->altura  ?? old('altura')}}" required="">
