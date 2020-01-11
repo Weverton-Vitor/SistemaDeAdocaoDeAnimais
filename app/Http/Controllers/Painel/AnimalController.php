@@ -90,7 +90,7 @@ class AnimalController extends Controller{
          $this->cvData['nNovosPedidos'] = count($this->cvData['vcObjects'] = PedidoAdocao::where('situacao', 'P')->orderBy('data_pedido')->get());
         $this->cvData['cvHeaderPage'] = $this->cvData['animal']->nome;
         $this->cvData['cvTitlePage'] = $this->cvData['cvHeaderPage'];        
-        return view('Painel.Animais.view', $this->cvData);
+        return view('Painel.Animais.show', $this->cvData);
     }
 
     //Preparando a página de edição

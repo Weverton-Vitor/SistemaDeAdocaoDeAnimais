@@ -16,7 +16,7 @@ class PedidoAdocao extends Model
         return $this->belongsTo('\App\Models\Animal');
     }
 
-    public function ederecoAdotador()
+    public function enderecoAdotador()
     {
        return $this->belongsTo('\App\Models\EnderecoAdotador', 'endereco_adotador_id');
     }

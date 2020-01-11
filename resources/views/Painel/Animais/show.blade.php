@@ -6,7 +6,6 @@
 		<div class="col-3">
 			@if(is_null($animal->imagem))
 			<!-- Animal sem imagem-->
-
 			<img id="img-animal" src="{{url('/img/imagemGenerica.png')}}">
 			@else
 			<!-- Animal com imagem-->

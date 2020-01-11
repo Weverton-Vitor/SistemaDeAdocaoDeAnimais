@@ -23,7 +23,7 @@ CREATE TABLE tipos (
 
 CREATE TABLE endereco_adotador (
   id int PRIMARY KEY AUTO_INCREMENT,
-  Cidade varchar(70) NOT NULL,
+  cidade varchar(70) NOT NULL,
   cep char(8) NOT NULL,
   bairro varchar(70) NOT NULL,
   rua varchar(70)NOT NULL,

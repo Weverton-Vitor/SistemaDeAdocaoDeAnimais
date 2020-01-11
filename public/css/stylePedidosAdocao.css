@@ -8,3 +8,23 @@
 }
 
 /*Estilos para a página de novos pedidos*/
+
+
+/*Estilos para a página show*/
+#img-animal-pedido{
+    width: 230px;
+    height: 230px;
+    border-radius: 30px;
+}
+.dados-pedidos{
+    padding: 10px;
+    margin-bottom: 30px;
+    border-radius: 30px;
+    border: #bfbcbc 1px solid;  
+}
+
+.linha-titulo{
+   background-color: #bfbcbc;
+   width: 100%;
+}
+
