@@ -1,6 +1,11 @@
 @extends('Painel.layoutPainel')
 @section('conteudo')
 <div class="container bg-light container-pedidos">
+    <div class="row" style="border: #bfbcbc 1px solid; border-right: #bfbcbc 1px solid; padding: 10px">
+        <div class="col-12">
+            <a href="{{route($cvRoute.'.create')}}" class="btn btn-primary"> Adicionar pedido manualmente</a>
+        </div>
+    </div>
     @foreach($pedidos as $pedido)
         <div class="row borda-container pedidos">            
             <div class="col-7">
@@ -32,5 +37,5 @@
             </div>
         </div>
     @endforeach
-</div
+</div>
 @endsection

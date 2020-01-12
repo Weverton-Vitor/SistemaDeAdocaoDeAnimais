@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\PedidoAdocao;
 use App\Models\Animal;
+use App\Http\Requests\FormRequestDadosPedidoAdocao;
 
 class PedidoAdocaoController extends Controller {
 
@@ -82,7 +83,8 @@ class PedidoAdocaoController extends Controller {
     }
 
     //
-    public function edit($id) {
+    public function edit($id)
+    {
         $this->cvData['cvMenuPage']['create'] = 'active';
         $this->cvData['vcObject'] = $this->model->find($id);
         $this->cvData['nNovosPedidos'] = count($this->cvData['vcObjects'] = PedidoAdocao::where('situacao', 'P')->orderBy('data_pedido')->get());
@@ -90,7 +92,8 @@ class PedidoAdocaoController extends Controller {
     }
 
     //
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id) 
+    {
         $dataForm = $request->all();
 
         $this->model = $this->model->find($id);
@@ -159,6 +162,11 @@ class PedidoAdocaoController extends Controller {
         $this->cvData['vcObjects'] = $this->model->searchGrid($searchCriteria, $total_page);
 
         return view($this->cvData['cvViewDirectory'] . '.index', $this->cvData);
+    }
+
+    public function selecionarAnimal(FormRequestDadosPedidoAdocao $request)
+    {
+        return view('Painel.PedidosAdocao.selecionarAnimal');
     }
 
     // Aceita o pedido de adoção
