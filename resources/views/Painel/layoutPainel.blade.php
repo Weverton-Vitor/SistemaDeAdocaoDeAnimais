@@ -16,7 +16,7 @@
     <div class="container container-layout borda-container">  
         <div class="row">
             <div class="col-12">                
-                <center> <h1 class="text"> {{$cvHeaderPage}} </h1> </center>
+                <center> <h1 class="text"> {{$cvHeaderPage ?? "Nome da página"}} </h1> </center>
             </div>            
         </div>  
         @include('includes.MensagemSucessoOuFalha')

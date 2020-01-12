@@ -33,3 +33,27 @@
    width: 100%;
 }
 
+/* Estilos da seleção de animais*/
+
+.container-selecionar-animais{
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 3;
+}
+
+.card-animal{
+    width: 350px;
+    margin: auto;
+    margin-bottom: 20px
+}
+
+.btn-selecionar{
+    width: 100%; 
+    border-radius: 0px;
+    border: #dfdfdf 1px solid;
+    border-top: 0px;
+}

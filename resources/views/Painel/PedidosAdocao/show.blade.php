@@ -8,18 +8,18 @@
                 <hr class="linha-titulo">
                 <div class="row">      
                     <div class="col-7">
-                        <p class="text">Nome do adotante:<br> {{$pedido->nome_adotante}}</p>
-                        <p class="text">CPF do adotante:<br> {{$pedido->cpf_adotante}}</p>
-                        <p class="text">Telefone do adotante:<br> {{$pedido->telefone_adotante}}</p>
-                        <p class="text">Email do adotante:<br> {{$pedido->email_adotante}}</p>
+                        <p class="text">Nome do adotante:<br> {{$pedido->dadosAdotante->nome_adotante}}</p>
+                        <p class="text">CPF do adotante:<br> {{$pedido->dadosAdotante->cpf_adotante}}</p>
+                        <p class="text">Telefone do adotante:<br> {{$pedido->dadosAdotante->telefone_adotante}}</p>
+                        <p class="text">Email do adotante:<br> {{$pedido->dadosAdotante->email_adotante}}</p>
                         <p class="text">Data do pedido:<br> {{date("d/m/Y", (strtotime($pedido->data_pedido)))}}</p>
                     </div>
                     <div class="col-5">
-                        <p class="text">Cidade:<br> {{$pedido->enderecoAdotante->cidade}}</p>
-                        <p class="text">CEP:<br> {{$pedido->enderecoAdotante->cep}}</p>
-                        <p class="text">Bairro:<br> {{$pedido->enderecoAdotante->bairro}}</p>
-                        <p class="text">Rua:<br> {{$pedido->enderecoAdotante->rua}}</p>
-                        <p class="text">Número da casa:<br> {{$pedido->enderecoAdotante->numero_casa}}</p>
+                        <p class="text">Cidade:<br> {{$enderecoAdotante->cidade}}</p>
+                        <p class="text">CEP:<br> {{$enderecoAdotante->cep}}</p>
+                        <p class="text">Bairro:<br> {{$enderecoAdotante->bairro}}</p>
+                        <p class="text">Rua:<br> {{$enderecoAdotante->rua}}</p>
+                        <p class="text">Número da casa:<br> {{$enderecoAdotante->numero_casa}}</p>
                     </div>                       		
                 </div>
             </section>
@@ -54,8 +54,14 @@
             @if(isset($activeIndexTodosPedidos))
             <section class="dados-pedidos">
                 <h3 class="text text-center"> Situação do pedido</h3>
-                <hr class="linha-titulo">
-                <p class="text"> Situação do pedido: {{$pedido->situacao == 'A' ? 'Aprovado' : $pedido->situacao == 'P' ? 'Não analizado' : 'Não aprovado'}}</p>
+                <hr class="linha-titulo">            
+                @if($pedido->situacao == 'A')
+                <p class="text"> Situação do pedido: Aprovado</p>
+                @elseif($pedido->situacao == 'P')
+                <p class="text"> Situação do pedido: Não analizado</p>
+                @else
+                <p class="text"> Situação do pedido: Não aprovado}}</p>
+                @endif               
                 <p class="text"> Informações adicionais: {{empty($pedido->informacoes_adicionais) ? 'Sem informações adicionais' : $pedido->informacoes_adicionais}}</p>
             </section>
             @endif

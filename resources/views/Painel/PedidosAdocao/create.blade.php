@@ -1,23 +1,9 @@
 @extends('Painel.layoutPainel')
 @section('conteudo')
 <div class="container bg-light container-create borda-container">
-	@if(isset($animal))
-	<!--div id="aviso-imagem" class="collapse show">
-		<div class="row alert alert-info" style="margin-left: 0px; margin-right: 0px">			
-			<div class="col-11">
-				Para editar a imagem de um animal basta acessar a página de visualização individual dele!
-			</div>
-			<div class="col-1">				
-				<a class="btn-fechar-aviso" data-toggle="collapse" data-target="#aviso-imagem" href="#">
-					<span>X</span>
-				</a>
-			</div>				
-		</div>
-	</div -->	
-	@endif
 	<div class="row">
 		<div class="col-12">
-			<form class="form" action="{{route($cvRoute.'.selecionarAnimal')}}" method="post" enctype="multipart/form-data">
+			<form class="form" action="{{route($cvRoute.'.validarDados')}}" method="post" enctype="multipart/form-data">
                 {!! csrf_field() !!}
                 
                 <h3 class="text"> Dados do adotante</h3>
@@ -27,6 +13,9 @@
 
                 <label class="text" for="cpf_adotante">CPF do adotante:</label>
                 <input id="cpf" type="text" name="cpf_adotante" class="form-control" placeholder="000.000.000-00" value="{{old('cpf_adotante')}}" required maxlength="14">
+
+				<label class="text" for="email_adotante">Email do adotante:</label>
+				<input type="email" name="email_adotante" class="form-control" placeholder="Email:" value="{{old('email_adotante')}}" required maxlength="50">
 
 				<label class="text" for="telefone_adotante">Telefone do adotante:</label>
 				<input id="telefone" type="text" name="telefone_adotante" class="form-control" placeholder="99999-9999" value="{{old('telefone_adotante')}}" required maxlength="11">
