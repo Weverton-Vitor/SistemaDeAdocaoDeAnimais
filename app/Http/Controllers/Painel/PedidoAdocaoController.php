@@ -59,12 +59,13 @@ class PedidoAdocaoController extends Controller {
         //Procedimentetos para cadastro manual de pedidos
 
         // Recuperando dados da sessão
-        $dataForm = $request->session()->all();        
+        $dataForm = $request->session()->all();      
         
-        //Dados do formulario hiddem da página de seleção do animal
+        
+        //Dados do formulario hidden da página de seleção do animal
         $dataForm['animal_id'] = $request->input('animal_id');     
         $dataForm['situacao'] = "A";
-        $dataForm['data_pedido'] = date('Y-m-d');
+        $dataForm['data_pedido'] = date('Y-m-d');    
 
         $insertDadosAdotante = DadosAdotante::create($dataForm);
         $dataForm['dados_adotante_id'] = $insertDadosAdotante->id; //Pegando o id dos dados do adotante        
@@ -72,12 +73,24 @@ class PedidoAdocaoController extends Controller {
 
         // Procedimentos para cadastro pelo site com usuário logado
 
-        if ($insertPedido && $insertDadosAdotante)
+        if ($insertPedido)
         {
             // Mudando a situaçao de adoção do animal
             $animal = Animal::find($dataForm['animal_id']);
             $animal->situacao_adocao = "S";
             $animal->save();
+
+            // Negando todos os pedidos do animal selecionado
+            $pedidos = PedidoAdocao::where('animal_id',  $dataForm['animal_id'])->get();
+            foreach ($pedidos as $pedido)
+            {
+                if ($pedido->situacao == "P" && $pedido->id !=  $insertPedido->id)
+                {
+                    $pedido->situacao = "N";
+                    $pedido->save();
+                }
+            }
+           
 
             return redirect()->
                             route($this->cvData['cvRoute'] . '.index')->
@@ -197,7 +210,7 @@ class PedidoAdocaoController extends Controller {
         $pedido->situacao = "A";
         $pedido->save();
 
-        // Alteranp a situação de adoção do animal para adotado
+        // Alteranp o situação de adoção do animal para adotado
         $animal = Animal::find($pedido->animal_id);
         $animal->situacao_adocao = "S";
         $animal->save();
