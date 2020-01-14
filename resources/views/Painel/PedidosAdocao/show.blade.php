@@ -24,7 +24,7 @@
                 </div>
             </section>
             @if(isset($activeIndexTodosPedidos))
-            <a class="btn btn-danger" href="{{route($cvRoute.'.destroy', $pedido->id)}}">Excluir</a>
+            <a class="btn btn-danger" href="{{route($cvRoute.'.destroyOne', $pedido->id)}}">Excluir</a>
             @endif
         </div>
         <div class="col-6">

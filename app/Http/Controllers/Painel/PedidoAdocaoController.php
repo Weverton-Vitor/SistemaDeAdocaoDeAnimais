@@ -132,25 +132,10 @@ class PedidoAdocaoController extends Controller {
     }
 
     //Deleta 1 pedido de adoção do banco de dados
-    public function destroy($id, Request $request) 
+    public function destroyOne($id, Request $request) 
     {
-
-        $arr = explode(',', $id);
-        $total_itens = count($arr);
-        
-        if ($total_itens > 1) {
-            $delete = $this->model::whereRaw("ID IN ({$id})")->delete();
-            $msg = $total_itens . " itens";
-            
-        } elseif ($total_itens == 1) {
-            
-            $obj = $this->model::find($id);
-            $delete = $obj->delete();
-            $msg = $obj['name'];
-            
-        }else{
-            $msg=$id;
-        }
+        $pedido = $this->model->find($id);
+        $delete = $pedido->delete();
 
         $nNovosPedidos = count(PedidoAdocao::where('situacao', 'P')->get());
         $request->session()->put('nNovosPedidos', $nNovosPedidos);
@@ -158,11 +143,11 @@ class PedidoAdocaoController extends Controller {
         if ($delete)        
             return redirect()->
                             route($this->cvData['cvRoute'] . '.index')->
-                            with('success', 'Sucesso ao excluir [ ' . $msg . ' ]');
+                            with('success', 'Sucesso ao excluir pedido');
         else        
             return redirect()->
                             route($this->cvData['cvRoute'] . '.index')->
-                            with('error', 'Erro ao excluir [ ' . $msg . ' ]');
+                            with('error', 'Erro ao excluir pedido');
     }
 
     //

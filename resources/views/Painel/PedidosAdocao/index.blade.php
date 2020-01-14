@@ -35,7 +35,7 @@
                     <h4 class="badge badge-secondary situacao-pedido">Pedido não analizado</h4>
                     @endif
                     <a class="btn btn-primary" href="{{route($cvRoute.'.show', ['PedidosAdocao' => $pedido->id, 'activeIndexTodosPedidos' => 'true'])}}">Ver detalhes</a>
-                    <a class="btn btn-danger" href="{{route($cvRoute.'.destroy', $pedido->id)}}">Excluir</a>
+                    <a class="btn btn-danger" href="{{route($cvRoute.'.destroyOne', $pedido->id)}}">Excluir</a>
                     @endif
                 </div>
             </div>

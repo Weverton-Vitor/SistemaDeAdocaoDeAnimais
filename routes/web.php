@@ -12,6 +12,7 @@ Route::resource("Animais", "Painel\AnimalController");
 
 
 //Rotas dos pedidos de adoção
+Route::get('pedidos/excluir/{id}', 'Painel\PedidoAdocaoController@destroyOne')->name('PedidosAdocao.destroyOne');
 Route::get('pedidos/aceitar-pedido/{id}', 'Painel\PedidoAdocaoController@aceitarPedidoAdocao')->name('PedidosAdocao.aceitarPedido');
 Route::get('pedido/recusar-pedido/{id}', 'Painel\PedidoAdocaoController@recusarPedidoAdocao')->name('PedidosAdocao.recusarPedido');
 Route::match(['get', 'post'], 'pedido/validar-dados', 'Painel\PedidoAdocaoController@validarDados')->name('PedidosAdocao.validarDados');
