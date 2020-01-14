@@ -15,11 +15,11 @@
                         <p class="text">Data do pedido:<br> {{date("d/m/Y", (strtotime($pedido->data_pedido)))}}</p>
                     </div>
                     <div class="col-5">
-                        <p class="text">Cidade:<br> {{$enderecoAdotante->cidade}}</p>
-                        <p class="text">CEP:<br> {{$enderecoAdotante->cep}}</p>
-                        <p class="text">Bairro:<br> {{$enderecoAdotante->bairro}}</p>
-                        <p class="text">Rua:<br> {{$enderecoAdotante->rua}}</p>
-                        <p class="text">Número da casa:<br> {{$enderecoAdotante->numero_casa}}</p>
+                        <p class="text">Cidade:<br> {{$pedido->dadosAdotante->cidade}}</p>
+                        <p class="text">CEP:<br> {{$pedido->dadosAdotante->cep}}</p>
+                        <p class="text">Bairro:<br> {{$pedido->dadosAdotante->bairro}}</p>
+                        <p class="text">Rua:<br> {{$pedido->dadosAdotante->rua}}</p>
+                        <p class="text">Número da casa:<br> {{$pedido->dadosAdotante->numero_casa}}</p>
                     </div>                       		
                 </div>
             </section>

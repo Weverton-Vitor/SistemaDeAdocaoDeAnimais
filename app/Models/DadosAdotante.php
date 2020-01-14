@@ -8,11 +8,13 @@ class DadosAdotante extends Model
 {
     protected $table = 'dados_adotante';
     protected $fillable = ['nome_adotante', 'cpf_adotante', 'telefone_adotante',
-                           'email_adotante', 'endereco_adotante_id', 'updated_at', 'created_up'];
+                           'email_adotante', 'endereco_adotante_id', 'cidade', 
+                           'cep', 'bairro', 'rua', 'numero_casa', 'updated_at',
+                           'created_up'];
 
-    public function enderecoAdotante()
+    public function pedidoAdocao()
     {
-       return $this->belongsTo('\App\Models\EnderecoAdotante', 'endereco_adotante_id');
+        return $this->hasOne('\App\Models\PedidoAdocao', 'endereco_adotante_id');
     }
 
 

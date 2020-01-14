@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\PedidoAdocao;
 use App\Models\Animal;
-use App\Models\EnderecoAdotante;
 use App\Models\DadosAdotante;
 use App\Http\Requests\FormRequestDadosPedidoAdocao;
 
@@ -52,22 +51,24 @@ class PedidoAdocaoController extends Controller {
     // Efetua a cadastro de novos pedidos de adoção
     public function store(Request $request) 
     {        
+
+        //Procedimentetos para cadastro manual de pedidos
+
         // Recuperando dados da sessão
-        $dataForm = $request->session()->all();
-        //dd($dataForm);
+        $dataForm = $request->session()->all();        
         
         //Dados do formulario hiddem da página de seleção do animal
         $dataForm['animal_id'] = $request->input('animal_id');     
         $dataForm['situacao'] = "A";
         $dataForm['data_pedido'] = date('Y-m-d');
 
-        $insertEndereco = EnderecoAdotante::create($dataForm);
-        $dataForm['endereco_adotante_id'] = $insertEndereco->id; //Pegando o id do endereço
         $insertDadosAdotante = DadosAdotante::create($dataForm);
         $dataForm['dados_adotante_id'] = $insertDadosAdotante->id; //Pegando o id dos dados do adotante        
         $insertPedido = $this->model->create($dataForm);
 
-        if ($insertPedido && $insertEndereco && $insertDadosAdotante)
+        // Procedimentos para cadastro pelo site com usuário logado
+
+        if ($insertPedido && $insertDadosAdotante)
         {
             // Mudando a situaçao de adoção do animal
             $animal = Animal::find($dataForm['animal_id']);
@@ -98,40 +99,11 @@ class PedidoAdocaoController extends Controller {
         if (!is_null($request->input('activeIndexTodosPedidos'))) {
             $this->cvData['activeIndexTodosPedidos'] = true;
         }
-        $this->cvData['pedido'] = $this->model->with('animal', 'dadosAdotante')->find($id);        
-        $this->cvData['enderecoAdotante'] = EnderecoAdotante::find( $this->cvData['pedido']->dadosAdotante->endereco_adotante_id);        
+        $this->cvData['pedido'] = $this->model->with('animal', 'dadosAdotante')->find($id);
         $this->cvData['nNovosPedidos'] = count($this->cvData['vcObjects'] = PedidoAdocao::where('situacao', 'P')->orderBy('data_pedido')->get());
         $this->cvData['cvHeaderPage'] = "Pedido de adoção: ".$this->cvData['pedido']->animal->nome;
         $this->cvData['cvTitlePage'] = $this->cvData['cvHeaderPage'];
         return view($this->cvData['cvViewDirectory'] .'.show', $this->cvData);
-    }
-
-    //
-    public function edit($id)
-    {
-        $this->cvData['cvMenuPage']['create'] = 'active';
-        $this->cvData['vcObject'] = $this->model->find($id);
-        $this->cvData['nNovosPedidos'] = count($this->cvData['vcObjects'] = PedidoAdocao::where('situacao', 'P')->orderBy('data_pedido')->get());
-        return view($this->cvData['cvViewDirectory'] . '.create', $this->cvData);
-    }
-
-    //
-    public function update(Request $request, $id) 
-    {
-        $dataForm = $request->all();
-
-        $this->model = $this->model->find($id);
-
-        $update = $this->model->update($dataForm);
-
-        if ($update)
-            return redirect()->
-                            route($this->cvData['cvRoute'] . '.index')->
-                            with('success', 'Sucesso ao editar [ ' . $dataForm['name'] . ' ]');
-        else
-            return redirect()->
-                            route($this->cvData['cvRoute'] . '.edit', $id)->
-                            with('errors', 'Falha ao editar [ ' . $dataForm['name'] . ' ]');
     }
 
     //
@@ -184,8 +156,8 @@ class PedidoAdocaoController extends Controller {
     }
 
     // Valida os dados do cadastro manual e redireciona para para o método selecionarAnimal
-    public function validarDados(FormRequestDadosPedidoAdocao $request){
-
+    public function validarDados(FormRequestDadosPedidoAdocao $request)
+    {
         // Guardando os dados na sessão
         $dataForm = $request->except('_token');
         $request->session()->put('nome_adotante', $dataForm['nome_adotante']);
