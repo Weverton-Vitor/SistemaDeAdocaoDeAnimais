@@ -1,6 +1,20 @@
 @extends('Painel.layoutPainel')
 @section('conteudo')
 <div class="container bg-light container-create borda-container">
+	<div id="aviso" class="collapse show">
+		<div class="alert alert-danger">
+			<div class="row">
+				<div class="col-11">
+					Ao adicionar um pedido manualmente, todos os pedidos que se referem ao animal selecionado neste cadastro serão negados
+				</div>
+				<div class="1">
+				<a class="btn-fechar-aviso" data-toggle="collapse" data-target="#aviso" href="#">
+					<span>X</span>
+				</a>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-12">
 			<form class="form" action="{{route($cvRoute.'.validarDados')}}" method="post" enctype="multipart/form-data">

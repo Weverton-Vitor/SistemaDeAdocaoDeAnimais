@@ -66,6 +66,12 @@ body{
     color: red;
 }
 
+.btn-fechar-aviso:hover{
+    padding: 2px;
+    text-decoration: none;
+    color: red;
+}
+
 /* Estilos para o dashboard*/
 .container-dashboard{
     border: #bfbcbc 1px solid;
