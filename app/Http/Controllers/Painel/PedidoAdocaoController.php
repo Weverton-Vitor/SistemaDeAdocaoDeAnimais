@@ -28,10 +28,10 @@ class PedidoAdocaoController extends Controller {
     {              
         if (!is_null($request->input('novosPedidos')))// Resgata apenas novos registros
         {
-            $this->cvData['pedidos'] = $this->model::orderBy('data_pedido')->where('situacao', 'P')->with('animal')->paginate($this->total_page);   
+            $this->cvData['pedidos'] = $this->model::orderBy('data_pedido')->where('situacao', 'P')->with('animal', 'dadosAdotante')->paginate($this->total_page);   
             $this->cvData['activeIndexNovoPedido'] = true;
         } else {
-            $this->cvData['pedidos'] = $this->model::orderBy('data_pedido')->with('animal')->paginate($this->total_page);   
+            $this->cvData['pedidos'] = $this->model::orderBy('data_pedido')->with('animal', 'dadosAdotante')->paginate($this->total_page);   
             $this->cvData['activeIndexTodosPedidos'] = true;
         }
         //Total de novos pedidos       
@@ -39,7 +39,13 @@ class PedidoAdocaoController extends Controller {
     }
 
     // Mostra um formulário para a primeira do cadastro manual de pedidos de adoção
-    public function create() {
+    public function create(Request $request) {
+        if (!is_null($request->input('novosPedidos')))
+        {            
+            $this->cvData['activeIndexNovoPedido'] = true;
+        } else {            
+            $this->cvData['activeIndexTodosPedidos'] = true;
+        }
         $this->cvData['cvMenuPage']['create'] = 'active';        
         $this->cvData['cvHeaderPage'] = "Novo pedido de adoção";
         $this->cvData['cvTitlePage'] = $this->cvData['cvHeaderPage'];
@@ -96,6 +102,8 @@ class PedidoAdocaoController extends Controller {
     {                
         if (!is_null($request->input('activeIndexTodosPedidos'))) {
             $this->cvData['activeIndexTodosPedidos'] = true;
+        } else {
+            $this->cvData['activeIndexNovoPedido'] = true;
         }
         $this->cvData['pedido'] = $this->model->with('animal', 'dadosAdotante')->find($id);        
         $this->cvData['cvHeaderPage'] = "Pedido de adoção: ".$this->cvData['pedido']->animal->nome;
@@ -193,7 +201,7 @@ class PedidoAdocaoController extends Controller {
         $animal = Animal::find($pedido->animal_id);
         $animal->situacao_adocao = "S";
         $animal->save();
-        $nNovosPedidos = count(PedidoAdocao::orderBy('data_pedido')->where('situacao', 'P')->get());
+        $nNovosPedidos = count(PedidoAdocao::where('situacao', 'P')->get());
         $request->session()->put('nNovosPedidos', $nNovosPedidos);
 
         return redirect()->
@@ -208,7 +216,7 @@ class PedidoAdocaoController extends Controller {
         $pedido = $this->model->find($id);
         $pedido->situacao = "N";
         $pedido->save();
-        $nNovosPedidos = count(PedidoAdocao::orderBy('data_pedido')->where('situacao', 'P')->get());
+        $nNovosPedidos = count(PedidoAdocao::where('situacao', 'P')->get());
         $request->session()->put('nNovosPedidos', $nNovosPedidos);
 
         return redirect()->

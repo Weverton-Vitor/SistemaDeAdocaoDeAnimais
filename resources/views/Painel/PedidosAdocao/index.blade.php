@@ -3,16 +3,20 @@
 <div class="container bg-light container-pedidos">
     <div class="row" style="border: #bfbcbc 1px solid; border-right: #bfbcbc 1px solid; padding: 10px">
         <div class="col-12">
+        @if(!isset($activeIndexTodosPedidos))
+            <a href="{{route($cvRoute.'.create', ['novosPedidos' => true])}}" class="btn btn-primary"> Adicionar pedido manualmente</a>
+        @else
             <a href="{{route($cvRoute.'.create')}}" class="btn btn-primary"> Adicionar pedido manualmente</a>
+        @endif
         </div>
     </div>
     @foreach($pedidos as $pedido)
         <div class="row borda-container pedidos" style="border-bottom: #bfbcbc 1px solid; border-radius: 0px">            
             <div class="col-7">
-                <p class="text">Nome do adotante: {{$pedido->nome_adotante}}</p>
-                <p class="text">CPF do adotante: {{$pedido->cpf_adotante}}</p>
-                <p class="text">Telefone do adotante: {{$pedido->telefone_adotante}}</p>
-                <p class="text">Email do adotante: {{$pedido->email_adotante}}</p>
+                <p class="text">Nome do adotante: {{$pedido->dadosAdotante->nome_adotante}}</p>
+                <p class="text">CPF do adotante: {{$pedido->dadosAdotante->cpf_adotante}}</p>
+                <p class="text">Telefone do adotante: {{$pedido->dadosAdotante->telefone_adotante}}</p>
+                <p class="text">Email do adotante: {{$pedido->dadosAdotante->email_adotante}}</p>
                 <p class="text">Nome do Animal: {{$pedido->animal->nome}}</p>
                 <p class="text">Data do pedido: {{date("d/m/Y", (strtotime($pedido->data_pedido)))}}</p>
             </div>

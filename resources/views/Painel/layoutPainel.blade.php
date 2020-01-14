@@ -25,14 +25,14 @@
             <div class="col-12">                    
                 <nav class="navbar navbar-expand-sm menu bg-light">
                     <ul class="nav bg-light">
-                        @if(isset($activeIndexAnimal))
+                        @if(isset($activeDashboard))
                         <li class="nav-item item itemAtivo">
                         @else
                         <li class="nav-item item ">
                         @endif
                             <a class="nav-link text" href="{{route('Painel.index')}}">Página Inicial</a>
                         </li>
-                        @if(isset($activeCreate))
+                        @if(isset($activeAnimal))
                         <li class="nav-item item itemAtivo">
                         @else
                         <li class="nav-item item ">

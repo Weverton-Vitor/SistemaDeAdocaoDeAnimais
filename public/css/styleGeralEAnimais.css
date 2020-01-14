@@ -67,7 +67,16 @@ body{
 }
 
 /* Estilos para o dashboard*/
+.container-dashboard{
+    border: #bfbcbc 1px solid;
+    border-radius: 30px;
+    margin-bottom: 20px;
+    
+}
 
+.text-dashboard{
+    padding: 10px;
+}
 
 /* Estilos para a página index*/
 .tabela-index{
