@@ -28,19 +28,22 @@ class AnimalController extends Controller{
     // Grid para a admistração dos animais
     public function index() 
     {   
+        $nNovosPedidos = count(PedidoAdocao::where('situacao', 'P')->get());
+        $request->session()->put('nNovosPedidos', $nNovosPedidos);
         $this->cvData['activeAnimal'] = true;                 
         $this->cvData['nNovosPedidos'] = count($this->cvData['vcObjects'] = PedidoAdocao::where('situacao', 'P')->orderBy('data_pedido')->get());
         $this->cvData['cvObjects'] = $this->model::orderBy('nome')->with('tipo')->paginate($this->total_page);        return view($this->cvData['cvViewDirectory'] . '.index', $this->cvData);
     }
 
     // Redireciona para a pagina de cadastro
-    public function create()
+    public function create(Request $request)
     {   
         $this->cvData['activeAnimal'] = true;
         $this->cvData['tipos'] = Tipo::all();        
         $this->cvData['cvHeaderPage'] = "Novo animal";
         $this->cvData['cvTitlePage'] = $this->cvData['cvHeaderPage'];
-        $this->cvData['nNovosPedidos'] = count($this->cvData['vcObjects'] = PedidoAdocao::where('situacao', 'P')->orderBy('data_pedido')->get());        
+        $nNovosPedidos = count(PedidoAdocao::where('situacao', 'P')->get());
+        $request->session()->put('nNovosPedidos', $nNovosPedidos);
         return view($this->cvData['cvViewDirectory'] . '.create', $this->cvData);
     }
 
@@ -56,10 +59,15 @@ class AnimalController extends Controller{
                             with('error', 'Já existe um registro com este nome: ' . $dataForm['nome']);
         }
 
+        $nNovosPedidos = count(PedidoAdocao::where('situacao', 'P')->get());
+        $request->session()->put('nNovosPedidos', $nNovosPedidos);
+
         $dataForm['situacao_adocao'] = 'N';
         $store = $this->model->create($dataForm);
-
-        if ($store){ // Sucesso ao salvar no banco de dados
+        
+        // Sucesso ao salvar no banco de dados
+        if ($store)
+        { 
             //Salvando imagem
             if (!is_null($request->file('imagem'))) {  // Testando se foi feito upload de uma imagem                 
                 $request->file($request->input('imagem')); // Pegando a imagem
@@ -83,23 +91,25 @@ class AnimalController extends Controller{
     }
 
     // Visualização individual de cada animal
-    public function show($id) 
+    public function show($id, Request $request) 
     {        
         $this->cvData['activeAnimal'] = true;
         $this->cvData['animal'] = $this->model->with('tipo')->find($id);         
-        $this->cvData['nNovosPedidos'] = count($this->cvData['vcObjects'] = PedidoAdocao::where('situacao', 'P')->orderBy('data_pedido')->get());
+        $nNovosPedidos = count(PedidoAdocao::where('situacao', 'P')->get());
+        $request->session()->put('nNovosPedidos', $nNovosPedidos);
         $this->cvData['cvHeaderPage'] = $this->cvData['animal']->nome;
         $this->cvData['cvTitlePage'] = $this->cvData['cvHeaderPage'];        
         return view('Painel.Animais.show', $this->cvData);
     }
 
     //Preparando a página de edição
-    public function edit($id) 
+    public function edit($id, Request $request) 
     {        
         $this->cvData['tipos'] = Tipo::all();  
         $this->cvData['animal'] = $this->model->find($id);
         $this->cvData['cvHeaderPage'] = "Editar dados de: " .  $this->cvData['animal']->nome;
-        $this->cvData['nNovosPedidos'] = count($this->cvData['vcObjects'] = PedidoAdocao::where('situacao', 'P')->orderBy('data_pedido')->get());
+        $nNovosPedidos = count(PedidoAdocao::where('situacao', 'P')->get());
+        $request->session()->put('nNovosPedidos', $nNovosPedidos);
         $this->cvData['cvTitlePage'] = $this->cvData['cvHeaderPage'];
         return view($this->cvData['cvViewDirectory'] . '.create', $this->cvData);
     }
@@ -115,6 +125,8 @@ class AnimalController extends Controller{
             $request->imagem->storeAs('uploadImg', 'imagem'.$store->id.'.'.$request->imagem->extension());
         }
 
+        $nNovosPedidos = count(PedidoAdocao::where('situacao', 'P')->get());
+        $request->session()->put('nNovosPedidos', $nNovosPedidos);
         $update = $this->model->update($dataForm);
 
         if ($update)
@@ -128,11 +140,14 @@ class AnimalController extends Controller{
     }
 
     // Realizando a exlusão de um animal
-    public function destroyOne($id)
+    public function destroyOne($id, Request $request)
     {       
         $obj = $this->model::find($id);
         $msg = $obj['nome'];
-        $delete = $obj->delete();        
+        $delete = $obj->delete();    
+        
+        $nNovosPedidos = count(PedidoAdocao::where('situacao', 'P')->get());
+        $request->session()->put('nNovosPedidos', $nNovosPedidos);
 
         if ($delete)//Sucesso ao realizar delete
             return redirect()->
@@ -147,6 +162,9 @@ class AnimalController extends Controller{
     // Deletando vários animais
     public function destroyMany(Request $request)
     {
+        $nNovosPedidos = count(PedidoAdocao::where('situacao', 'P')->get());
+        $request->session()->put('nNovosPedidos', $nNovosPedidos);
+
         $ids = ($request->input("id"));//Array com os ids
         if (!$ids == null) {// Se os ids não forem nulos
             $total_itens = count($ids);              

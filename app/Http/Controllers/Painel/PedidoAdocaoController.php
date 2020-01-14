@@ -11,7 +11,7 @@ use App\Http\Requests\FormRequestDadosPedidoAdocao;
 
 class PedidoAdocaoController extends Controller {
 
-    private $total_page = 10;
+    private $total_page = 6;
     private $cvData;
     private $model;
 
@@ -26,6 +26,8 @@ class PedidoAdocaoController extends Controller {
     //
     public function index(Request $request) 
     {              
+        $nNovosPedidos = count(PedidoAdocao::where('situacao', 'P')->get());
+        $request->session()->put('nNovosPedidos', $nNovosPedidos);
         if (!is_null($request->input('novosPedidos')))// Resgata apenas novos registros
         {
             $this->cvData['pedidos'] = $this->model::orderBy('data_pedido')->where('situacao', 'P')->with('animal', 'dadosAdotante')->paginate($this->total_page);   
@@ -40,6 +42,8 @@ class PedidoAdocaoController extends Controller {
 
     // Mostra um formulário para a primeira do cadastro manual de pedidos de adoção
     public function create(Request $request) {
+        $nNovosPedidos = count(PedidoAdocao::where('situacao', 'P')->get());
+        $request->session()->put('nNovosPedidos', $nNovosPedidos);
         if (!is_null($request->input('novosPedidos')))
         {            
             $this->cvData['activeIndexNovoPedido'] = true;
@@ -73,6 +77,8 @@ class PedidoAdocaoController extends Controller {
 
         // Procedimentos para cadastro pelo site com usuário logado
 
+        $nNovosPedidos = count(PedidoAdocao::where('situacao', 'P')->get());
+        $request->session()->put('nNovosPedidos', $nNovosPedidos);
         if ($insertPedido)
         {
             // Mudando a situaçao de adoção do animal
@@ -89,30 +95,31 @@ class PedidoAdocaoController extends Controller {
                     $pedido->situacao = "N";
                     $pedido->save();
                 }
-            }
-           
+            }                       
+            // Apagando os dados da sessão
+            $request->session()->forget(['nome_adotante', 'cpf_adotante', 'email_adotante', 'telefone_adotante', 'cidade', 'cep', 'bairro', 'rua', 'numero_casa', 'informacoes_adicionais']);
+            $request->session()->flush();
 
             return redirect()->
                             route($this->cvData['cvRoute'] . '.index')->
                                               with('success', 'Sucesso ao registrar pedido de adoção');
+        }
+        else
+        {            
             // Apagando os dados da sessão
             $request->session()->forget(['nome_adotante', 'cpf_adotante', 'email_adotante', 'telefone_adotante', 'cidade', 'cep', 'bairro', 'rua', 'numero_casa', 'informacoes_adicionais']);
             $request->session()->flush();
         }
-        else
-        {
             return redirect()->
                             route($this->cvData['cvRoute'] . '.create')->
                             with('error', 'Falha ao adicionar pedido de adoção');
-            // Apagando os dados da sessão
-            $request->session()->forget(['nome_adotante', 'cpf_adotante', 'email_adotante', 'telefone_adotante', 'cidade', 'cep', 'bairro', 'rua', 'numero_casa', 'informacoes_adicionais']);
-            $request->session()->flush();
-        }
     }
 
     // Página individual de cada pedido de adoção
     public function show($id, Request $request) 
     {                
+        $nNovosPedidos = count(PedidoAdocao::where('situacao', 'P')->get());
+        $request->session()->put('nNovosPedidos', $nNovosPedidos);
         if (!is_null($request->input('activeIndexTodosPedidos'))) {
             $this->cvData['activeIndexTodosPedidos'] = true;
         } else {
@@ -124,8 +131,8 @@ class PedidoAdocaoController extends Controller {
         return view($this->cvData['cvViewDirectory'] .'.show', $this->cvData);
     }
 
-    //
-    public function destroy($id) 
+    //Deleta 1 pedido de adoção do banco de dados
+    public function destroy($id, Request $request) 
     {
 
         $arr = explode(',', $id);
@@ -145,11 +152,14 @@ class PedidoAdocaoController extends Controller {
             $msg=$id;
         }
 
-        if ($delete)
+        $nNovosPedidos = count(PedidoAdocao::where('situacao', 'P')->get());
+        $request->session()->put('nNovosPedidos', $nNovosPedidos);
+
+        if ($delete)        
             return redirect()->
                             route($this->cvData['cvRoute'] . '.index')->
                             with('success', 'Sucesso ao excluir [ ' . $msg . ' ]');
-        else
+        else        
             return redirect()->
                             route($this->cvData['cvRoute'] . '.index')->
                             with('error', 'Erro ao excluir [ ' . $msg . ' ]');

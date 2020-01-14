@@ -41,5 +41,10 @@
             </div>
         </div>
     @endforeach
+    <div class="row" style="margin-top: 15px">
+        <div class="col-12">
+            {{$pedidos->links()}}
+        </div>
+    </div>
 </div>
 @endsection
