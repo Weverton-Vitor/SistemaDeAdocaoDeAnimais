@@ -26,7 +26,7 @@ class AnimalController extends Controller{
     }
 
     // Grid para a admistração dos animais
-    public function index() 
+    public function index(Request $request) 
     {   
         $nNovosPedidos = count(PedidoAdocao::where('situacao', 'P')->get());
         $request->session()->put('nNovosPedidos', $nNovosPedidos);
