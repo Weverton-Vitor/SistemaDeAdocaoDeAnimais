@@ -7,7 +7,7 @@
         </div>
     </div>
     @foreach($pedidos as $pedido)
-        <div class="row borda-container pedidos">            
+        <div class="row borda-container pedidos" style="border-bottom: #bfbcbc 1px solid; border-radius: 0px">            
             <div class="col-7">
                 <p class="text">Nome do adotante: {{$pedido->nome_adotante}}</p>
                 <p class="text">CPF do adotante: {{$pedido->cpf_adotante}}</p>

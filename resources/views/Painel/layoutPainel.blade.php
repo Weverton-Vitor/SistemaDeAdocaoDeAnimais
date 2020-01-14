@@ -14,9 +14,9 @@
 <body> 
  
     <div class="container container-layout borda-container">  
-        <div class="row">
+        <div class="row text-center">
             <div class="col-12">                
-                <center> <h1 class="text"> {{$cvHeaderPage ?? "Nome da página"}} </h1> </center>
+                 <h1 class="text"> {{$cvHeaderPage ?? "Nome da página"}} </h1>
             </div>            
         </div>  
         @include('includes.MensagemSucessoOuFalha')
@@ -30,14 +30,14 @@
                         @else
                         <li class="nav-item item ">
                         @endif
-                            <a class="nav-link text" href="{{route('Animais.index')}}">Página Inicial</a>
+                            <a class="nav-link text" href="{{route('Painel.index')}}">Página Inicial</a>
                         </li>
                         @if(isset($activeCreate))
                         <li class="nav-item item itemAtivo">
                         @else
                         <li class="nav-item item ">
                         @endif
-                            <a class="nav-link text" href="{{route('Animais.create')}}">Novo Animal</a>
+                            <a class="nav-link text" href="{{route('Animais.index')}}">Animais</a>
                         </li>
                         @if(isset($activeIndexNovoPedido))
                         <li class="nav-item item itemAtivo">
@@ -47,7 +47,7 @@
                             <a class="nav-link text" href="{{route('PedidosAdocao.index', ['novosPedidos' => 'true'])}}">
                                 Novos pedidos de adoção
                                 <span style="background-color: red; color: white; font-size: 14px ;padding: 5px; border-radius:100%">
-                                    {{$nNovosPedidos}}
+                                    {{session('nNovosPedidos')}}
                                 </span>
                             </a>
                         </li>

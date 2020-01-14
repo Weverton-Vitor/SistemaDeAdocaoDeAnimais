@@ -2,6 +2,9 @@
 
 Route::get('/', 'Painel\AnimalController@index');
 
+//Rotas para o painel em geral
+Route::resource("Painel", "Painel\PainelController");
+
 //Rotas dos animais
 Route::get('animais/deletar/{id}', 'Painel\AnimalController@destroyOne')->name('Animais.destroyOne');
 Route::get('animais/deletar-varios/', 'Painel\AnimalController@destroyMany')->name('Animais.destroyMany');

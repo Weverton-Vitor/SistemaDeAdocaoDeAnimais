@@ -8,6 +8,8 @@ body{
     border-left: #bfbcbc 1px solid;
     border-right: #bfbcbc 1px solid;
     border-bottom: #bfbcbc 1px solid;
+    border-bottom-left-radius:  30px;
+    border-bottom-right-radius: 30px;
 }
 
 .container-layout{
@@ -63,6 +65,9 @@ body{
     text-decoration: none;
     color: red;
 }
+
+/* Estilos para o dashboard*/
+
 
 /* Estilos para a página index*/
 .tabela-index{

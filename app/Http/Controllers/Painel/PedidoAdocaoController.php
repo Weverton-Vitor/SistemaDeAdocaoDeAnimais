@@ -34,15 +34,13 @@ class PedidoAdocaoController extends Controller {
             $this->cvData['pedidos'] = $this->model::orderBy('data_pedido')->with('animal')->paginate($this->total_page);   
             $this->cvData['activeIndexTodosPedidos'] = true;
         }
-        //Total de novos pedidos
-        $this->cvData['nNovosPedidos'] = count( $this->cvData['vcObjects'] = $this->model::orderBy('data_pedido')->where('situacao', 'P')->get());
+        //Total de novos pedidos       
         return view($this->cvData['cvViewDirectory'] . '.index', $this->cvData);
     }
 
     // Mostra um formulário para a primeira do cadastro manual de pedidos de adoção
     public function create() {
-        $this->cvData['cvMenuPage']['create'] = 'active';
-        $this->cvData['nNovosPedidos'] = count($this->cvData['vcObjects'] = PedidoAdocao::where('situacao', 'P')->orderBy('data_pedido')->get());
+        $this->cvData['cvMenuPage']['create'] = 'active';        
         $this->cvData['cvHeaderPage'] = "Novo pedido de adoção";
         $this->cvData['cvTitlePage'] = $this->cvData['cvHeaderPage'];
         return view($this->cvData['cvViewDirectory'] . '.create', $this->cvData);
@@ -99,8 +97,7 @@ class PedidoAdocaoController extends Controller {
         if (!is_null($request->input('activeIndexTodosPedidos'))) {
             $this->cvData['activeIndexTodosPedidos'] = true;
         }
-        $this->cvData['pedido'] = $this->model->with('animal', 'dadosAdotante')->find($id);
-        $this->cvData['nNovosPedidos'] = count($this->cvData['vcObjects'] = PedidoAdocao::where('situacao', 'P')->orderBy('data_pedido')->get());
+        $this->cvData['pedido'] = $this->model->with('animal', 'dadosAdotante')->find($id);        
         $this->cvData['cvHeaderPage'] = "Pedido de adoção: ".$this->cvData['pedido']->animal->nome;
         $this->cvData['cvTitlePage'] = $this->cvData['cvHeaderPage'];
         return view($this->cvData['cvViewDirectory'] .'.show', $this->cvData);
@@ -178,15 +175,14 @@ class PedidoAdocaoController extends Controller {
     // Mostra uma tela para a escolha de animal do pedido de adoção manual
     public function selecionarAnimal()
     {   
-        $this->cvData['animais'] = Animal::orderby('nome')->where('situacao_adocao', "N")->with('tipo')->paginate(6);        
-        $this->cvData['nNovosPedidos'] = count($this->cvData['vcObjects'] = PedidoAdocao::where('situacao', 'P')->orderBy('data_pedido')->get());
+        $this->cvData['animais'] = Animal::orderby('nome')->where('situacao_adocao', "N")->with('tipo')->paginate(6);                
         $this->cvData['cvHeaderPage'] = "Selecionar animal";
         $this->cvData['cvTitlePage'] = $this->cvData['cvHeaderPage'];        
         return view($this->cvData['cvViewDirectory'] .'.selecionarAnimal', $this->cvData);
     }
 
     // Aceita o pedido de adoção
-    public function aceitarPedidoAdocao($id)
+    public function aceitarPedidoAdocao($id, Request $request)
     {        
         // Alterando a situação do pedido para aprovado
         $pedido = $this->model->find($id);        
@@ -197,6 +193,8 @@ class PedidoAdocaoController extends Controller {
         $animal = Animal::find($pedido->animal_id);
         $animal->situacao_adocao = "S";
         $animal->save();
+        $nNovosPedidos = count(PedidoAdocao::orderBy('data_pedido')->where('situacao', 'P')->get());
+        $request->session()->put('nNovosPedidos', $nNovosPedidos);
 
         return redirect()->
                         route($this->cvData['cvRoute'] . '.index')->
@@ -205,11 +203,13 @@ class PedidoAdocaoController extends Controller {
     }
 
     // Recusa o pedido de adoção
-    public function recusarPedidoAdocao($id)
+    public function recusarPedidoAdocao($id, Request $request)
     {
         $pedido = $this->model->find($id);
         $pedido->situacao = "N";
         $pedido->save();
+        $nNovosPedidos = count(PedidoAdocao::orderBy('data_pedido')->where('situacao', 'P')->get());
+        $request->session()->put('nNovosPedidos', $nNovosPedidos);
 
         return redirect()->
                 route($this->cvData['cvRoute'] . '.index')->
