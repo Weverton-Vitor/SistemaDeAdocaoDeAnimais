@@ -12,7 +12,6 @@
         <script src="{{ url('/bootstrap-4.4.1-dist/js/jQuery-Mask-Plugin/dist/jquery.mask.min.js') }}"></script>
     </head>
 <body> 
- 
     <div class="container container-layout borda-container">  
         <div class="row text-center">
             <div class="col-12">                

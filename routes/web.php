@@ -1,6 +1,9 @@
 <?php
 
-Route::get('/', 'Painel\AnimalController@index');
+Route::get('/', 'Site\SiteController@index');
+
+//Rotas para o site
+Route::resource("Site", "Site\SiteController");
 
 //Rotas para o painel em geral
 Route::resource("Painel", "Painel\PainelController");
