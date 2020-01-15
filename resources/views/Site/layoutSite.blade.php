@@ -20,32 +20,58 @@
                         <ul class="nav">
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('Site.index')}}"> Home</a>
-                            </li>                           
+                            </li>    
+                            @if(Auth::check())               
+                            @if(!is_null(Auth::user()->dados_adontante_id))        
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('Site.adoteUmAnimal')}}"> Adotar um animal</a>
-                            </li>
+                            </li>  
+                            @endif                            
+                            @endif
+                            @if(Auth::check())
+                            @if(is_null(Auth::user()->dados_adontante_id))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('Painel.index')}}"> Acessar painel de controle</a>
+                            </li>                            
+                            @endif
+                            @endif
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('Site.contato')}}"> Contatos</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('Site.sobre')}}"> Sobre</a>
                             </li>
+                            @if(!Auth::check())
                             <li class="nav-item">
-                                <a class="nav-link" href="#"> Login</a>
+                                <a class="nav-link" href="{{route('login')}}"> Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"> Registrar-se</a>
+                                <a class="nav-link" href="{{ route('register') }}"> Registrar-se</a>
                             </li>
+                            @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        Sair
+                                    </a>
+                            </li>
+                            @endif
                         </ul>
                     </nav>
                 </div>
                 <div class="col-4" style="margin: auto;">
                     <div class="float-right">
-                        <p>Nome do usuário</p>
+                        @if(Auth::check())
+                        <p>{{Auth::user()->name}}</p>
+                        @endif
                     </div>
                 </div>
             </div>            
         </div>
         @yield('conteudo')
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+          @csrf
+        </form>
     </body>
 </html>
