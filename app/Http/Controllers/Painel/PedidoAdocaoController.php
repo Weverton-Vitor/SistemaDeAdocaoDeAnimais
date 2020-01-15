@@ -134,20 +134,31 @@ class PedidoAdocaoController extends Controller {
     //Deleta 1 pedido de adoção do banco de dados
     public function destroyOne($id, Request $request) 
     {
-        $pedido = $this->model->find($id);
+        $pedido = $this->model->with('animal')->find($id);
         $delete = $pedido->delete();
+        $animal = $pedido->animal()->get()->first();          
 
         $nNovosPedidos = count(PedidoAdocao::where('situacao', 'P')->get());
         $request->session()->put('nNovosPedidos', $nNovosPedidos);
 
-        if ($delete)        
+        if ($delete)
+        {
+            // Mudando a situação da adoção do animal
+            if($pedido->situacao == "A" && $animal->situacao_adocao == "S")
+            {
+                $animal->situacao_adocao = "N";
+                $animal->save();
+            }
             return redirect()->
                             route($this->cvData['cvRoute'] . '.index')->
                             with('success', 'Sucesso ao excluir pedido');
-        else        
+        }                            
+        else
+        {
             return redirect()->
                             route($this->cvData['cvRoute'] . '.index')->
                             with('error', 'Erro ao excluir pedido');
+        }
     }
 
     //
