@@ -3,7 +3,10 @@
 Route::get('/', 'Site\SiteController@index');
 
 //Rotas para o site
-Route::resource("Site", "Site\SiteController");
+Route::get('/Contato', 'Site\SiteController@contato')->name('Site.contato');
+Route::get('/Adote-um-animal', 'Site\SiteController@adoteUmAnimal')->name('Site.adoteUmAnimal');
+Route::get('/Sobre', 'Site\SiteController@sobre')->name('Site.sobre');
+Route::resource('Site', 'Site\SiteController');
 
 //Rotas para o painel em geral
 Route::resource("Painel", "Painel\PainelController");

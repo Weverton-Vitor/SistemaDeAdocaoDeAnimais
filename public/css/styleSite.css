@@ -19,3 +19,17 @@
 .legenda-img{
     background-color: rgba(156, 153, 153,0.7);
 }
+
+.container-contato-sobre{
+    padding: 0px;
+    height: 558px;    
+    padding-top: 30px;
+    background-image: url('../img/background_contato_sobre.jpeg');
+    background-size: 100% 558px;
+}
+
+.sombra{    
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.6);
+}

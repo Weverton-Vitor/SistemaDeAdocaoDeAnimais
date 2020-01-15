@@ -5,7 +5,7 @@
         <meta name="viewport" content="width-device-width, initial-scale=1.0"/>
         <title> {{$cvTitlePage ?? "Titulo da página"}}</title>
         <link rel="stylesheet" href="{{ url('/bootstrap-4.4.1-dist/css/bootstrap.min.css') }}">      
-        <link rel="stylesheet" href="{{url('/css/styleGeralEAnimais.css')}}">
+        <link rel="stylesheet" href="{{url('/css/styleLayoutEAnimais.css')}}">
         <link rel="stylesheet" href="{{url('/css/stylePedidosAdocao.css')}}">
         <script src="{{ url('/bootstrap-4.4.1-dist/js/jquery-3.4.1.min.js') }}"></script>
         <script src="{{ url('/bootstrap-4.4.1-dist/js/bootstrap.min.js') }}"></script>

@@ -25,6 +25,26 @@ class SiteController extends Controller
         return view('Site.index', $this->cvData);
     }
 
+    public function adoteUmAnimal()
+    {
+        $this->cvData['cvHeaderPage'] = "Adote um animal";
+        $this->cvData['cvTitlePage'] = $this->cvData['cvHeaderPage'];
+        return view('Site.adoteUmAnimal', $this->cvData);
+    }
+
+    public function contato()
+    {
+        $this->cvData['cvHeaderPage'] = "Contatos";
+        $this->cvData['cvTitlePage'] = $this->cvData['cvHeaderPage'];
+        return view('Site.contato', $this->cvData);
+    }
+
+    public function sobre()
+    {
+        $this->cvData['cvHeaderPage'] = "Sobre";
+        $this->cvData['cvTitlePage'] = $this->cvData['cvHeaderPage'];
+        return view('Site.sobre', $this->cvData);
+    }
 
    
 }
