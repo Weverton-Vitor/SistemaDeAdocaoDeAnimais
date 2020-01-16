@@ -33,3 +33,19 @@
     width: 100%;
     background-color: rgba(255, 255, 255, 0.6);
 }
+
+.box-login-register{
+    background-color: rgba(  120, 73, 45  , 0.4);  
+    font-size: 18px;
+    color: white;
+}
+
+.box-header-login-register{
+    font-size: 20px;
+    background-color: rgba( 120, 73, 45 , 0.5);
+}
+
+.btn-login-register{
+    background-color: #3c1800;
+    color: white;
+}

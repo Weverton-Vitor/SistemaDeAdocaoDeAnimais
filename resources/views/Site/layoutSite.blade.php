@@ -7,7 +7,7 @@
         <script src="{{ url('/bootstrap-4.4.1-dist/js/bootstrap.min.js') }}"></script>
         <link rel="stylesheet" href="{{ url('/bootstrap-4.4.1-dist/css/bootstrap.min.css') }}">    
         <link rel="stylesheet" href="{{url('css/styleSite.css')}}">        
-        <title>{{$cvTitlePage}}</title>
+        <title>{{$cvTitlePage ?? ''}}</title>
     </head>
     <body>
         <div class="container-fluid">
