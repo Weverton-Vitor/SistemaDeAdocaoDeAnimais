@@ -11,7 +11,7 @@ CREATE TABLE animais (
   raca varchar(40) NOT NULL,
   imagem varchar(200) NUll,
   situacao_medica varchar(100) NOT NULL,
-  situacao_adocao char(1) NULL COMMENT 'S = Adotado\nN = Não adotado',
+  situacao_adocao char(1) NULL COMMENT 'S = Adotado\nN = Não adotado\nR=Reservado',
   updated_at timestamp NULL,
   created_at timestamp NULL
 );

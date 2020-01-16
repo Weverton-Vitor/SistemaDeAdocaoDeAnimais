@@ -27,6 +27,7 @@ class SiteController extends Controller
 
     public function adoteUmAnimal()
     {
+        $this->cvData['animais'] = Animal::orderby('nome')->where('situacao_adocao', "N")->with('tipo')->paginate(6);                
         $this->cvData['cvHeaderPage'] = "Adote um animal";
         $this->cvData['cvTitlePage'] = $this->cvData['cvHeaderPage'];
         return view('Site.adoteUmAnimal', $this->cvData);
