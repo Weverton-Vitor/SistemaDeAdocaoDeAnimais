@@ -37,38 +37,38 @@
                         </div>
 
                         <div class="form-group">                            
-                                <label class="text" for="cpf_adotante">CPF do adotante:</label>
-                                <input id="cpf" type="text" name="cpf_adotante" class="form-control" placeholder="000.000.000-00" value="{{old('cpf_adotante')}}" required maxlength="14">                            
+                                <label for="cpf_adotante">CPF do adotante:</label>
+                                <input id="cpf_adotante" type="text" name="cpf_adotante" class="form-control" placeholder="000.000.000-00" value="{{old('cpf_adotante')}}" required maxlength="14">                            
                         </div>
 
                         <div class="form-group">                            
-                                <label class="text" for="telefone_adotante">Telefone do adotante:</label>
-                                <input id="telefone" type="text" name="telefone_adotante" class="form-control" placeholder="99999-9999" value="{{old('telefone_adotante')}}" required maxlength="11">
+                                <label for="telefone_adotante">Telefone do adotante:</label>
+                                <input id="telefone_adotante" type="text" name="telefone_adotante" class="form-control" placeholder="99999-9999" value="{{old('telefone_adotante')}}" required maxlength="11">
                         </div>
 
                         <div class="form-group">                            
-                                <label class="text" for="cidade">Cidade:</label>
+                                <label for="cidade">Cidade:</label>
                                 <input id="cidade" type="text" name="cidade" class="form-control" placeholder="Cidade:" value="{{old('cidade')}}" required maxlength="70">	                            
                         </div>
                         
                         <div class="form-group">                            
-                                <label class="text" for="cep">CEP:</label>
+                                <label for="cep">CEP:</label>
                                 <input id="cep" type="text" name="cep" class="form-control" placeholder="00000-000" value="{{old('cep')}}" required maxlength="8">                            
                         </div>
 
                         <div class="form-group">                            
-                                <label class="text" for="bairro">Bairro:</label>
+                                <label for="bairro">Bairro:</label>
                                 <input id="bairro" type="text" name="bairro" class="form-control" placeholder="Bairro:" value="{{old('bairro')}}" required maxlength="70">                            
                         </div>
 
                         <div class="form-group">                            
-                                <label class="text" for="rua">Rua:</label>
+                                <label for="rua">Rua:</label>
                                 <input id="rua" type="text" name="rua" class="form-control" placeholder="Rua:" value="{{old('rua')}}" required maxlength="70">                            
                         </div>
 
                         <div class="form-group">                            
-                                <label class="text" for="numero_casa">Numero da casa:</label>
-                                <input id='casa' type="text" name="numero_casa" class="form-control" placeholder="Nº:" value="{{old('numero_casa')}}" required maxlength="3">                            
+                                <label for="numero_casa">Numero da casa:</label>
+                                <input id='numero_casa' type="text" name="numero_casa" class="form-control" placeholder="Nº:" value="{{old('numero_casa')}}" required maxlength="3">                            
                         </div>
                         
                         <div class="form-group">
@@ -95,6 +95,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <input name="adotante" type="hidden" value="1">
                     </form>
                 </div>
             </div>
@@ -103,10 +105,10 @@
 </div>
 <script>
 	$(document).ready(function(){
-		$('#cpf').mask('000.000.000-00');//Máscara para o cpf
-		$('#telefone').mask('0000-00009');//Máscara para o telefone
+		$('#cpf_adotante').mask('000.000.000-00');//Máscara para o cpf
+		$('#telefone_adotante').mask('0000-00009');//Máscara para o telefone
 		$('#cep').mask('00000-000'); // Máscara para o cep
-		$('#casa').mask('099')// Máscara para o número da casa
+		$('#numero_casa').mask('099')// Máscara para o número da casa
 	})
 </script>
 @endsection

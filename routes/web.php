@@ -12,6 +12,7 @@ Route::resource('Site', 'Site\SiteController');
 
 Route::middleware(['auth'])->group(function () {
     //Rotas para o painel em geral
+    Route::get('usuario/cadastrar', 'Painel\PainelController@createUser')->name('Painel.createUser');
     Route::resource("Painel", "Painel\PainelController");
     
     //Rotas dos animais

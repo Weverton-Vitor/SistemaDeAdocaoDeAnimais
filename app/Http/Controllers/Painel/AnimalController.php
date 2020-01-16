@@ -21,7 +21,7 @@ class AnimalController extends Controller{
         $this->model = $model; // Setando a model
         $this->cvData['cvRoute'] = 'Animais'; //Prefixo da rota
         $this->cvData['cvViewDirectory'] = 'Painel.Animais'; // Diretório quem contém as views
-        $this->cvData['cvHeaderPage'] = "Animais"; // Título princiapal da view
+        $this->cvData['cvHeaderPage'] = "Animais"; // Título principal da view
         $this->cvData['cvTitlePage'] = $this->cvData['cvHeaderPage']; // Título da aba do navegador
     }
 

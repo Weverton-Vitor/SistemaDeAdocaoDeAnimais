@@ -10,11 +10,8 @@ use Illuminate\Support\Facades\DB;
 
 class PainelController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private $cvData;
+
     public function index(Request $request)
     {
         //Pegando dados gerais do sistema  
@@ -31,7 +28,16 @@ class PainelController extends Controller
         $this->cvData['activeDashboard'] = true;
         $this->cvData['cvHeaderPage'] = "Página inicial";
         $this->cvData['cvTitlePage'] = $this->cvData['cvHeaderPage'];
+        $this->cvData['cvRoute'] = 'Painel';
         return view('Painel.dashboard', $this->cvData);
+    }
+
+    public function createUser()
+    {
+        $this->cvData['cvHeaderPage'] = "Novo usuário com acesso ao painel de controller";
+        $this->cvData['cvTitlePage'] = $this->cvData['cvHeaderPage'];
+        $this->cvData['cvRoute'] = 'Painel';        
+        return view('Painel.createUser', $this->cvData);
     }
 
 }

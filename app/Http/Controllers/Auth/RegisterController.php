@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+USE App\Models\DadosAdotante;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -37,8 +38,8 @@ class RegisterController extends Controller
      * @return void
      */
     public function __construct()
-    {
-        $this->middleware('guest');
+    {   
+        //$this->middleware('guest');
     }
 
     /**
@@ -48,12 +49,33 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+    {   
+        if(isset($data['adotante']))
+        {//Adotante
+            if(!is_null($data['cpf_adotante']) || !is_null($data['telefone_adotante']) || !is_null($data['cidade']) || !is_null($data['cep']) || !is_null($data['bairro']) || !is_null($data['rua']) || !is_null($data['numero_casa']))
+            {//Segunda verificação de segurança
+                return Validator::make($data, [
+                    'name' => ['required', 'string', 'max:40'],
+                    'email' => ['required', 'string', 'email', 'max:50', 'unique:users'],
+                    'password' => ['required', 'string', 'min:8', 'confirmed'],
+                    'cpf_adotante' => ['required', 'max:14'],
+                    'telefone_adotante' => ['required', 'max:11'],            
+                    'cidade' => ['required' ,'max:70'],
+                    'cep' => ['required' ,'max:9'],
+                    'bairro' => ['required', 'max:70'],
+                    'rua' => ['required', 'max:70'],
+                    'numero_casa' => ['required', 'max:3']
+                ]);
+            }
+
+        } else { //Funcionário
+            
+            return Validator::make($data, [
+                'name' => ['required', 'string', 'max:40'],
+                'email' => ['required', 'string', 'email', 'max:50', 'unique:users'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],                
+            ]);
+        }
     }
 
     /**
@@ -64,10 +86,27 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        if(isset($data['adotante']))
+        {// Adotante
+            $data['nome_adotante'] = $data['name'];
+            $data['email_adotante'] = $data['email']; 
+            $dadosAdotante = DadosAdotante::create($data);
+            $data['dados_adotante_id'] = $dadosAdotante->id;            
+
+            return User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'dados_adotante_id' => $data['dados_adotante_id'],
+                'password' => Hash::make($data['password']),
+            ]);
+
+        } else{// Funcionário            
+            return User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),                
+            ]);
+        }
+
     }
 }

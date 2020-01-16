@@ -83,6 +83,9 @@ body{
 .text-dashboard{
     padding: 10px;
 }
+.subtitulo-dashboard{
+    margin-top: 10px;
+}
 
 /* Estilos para a página index*/
 .tabela-index{

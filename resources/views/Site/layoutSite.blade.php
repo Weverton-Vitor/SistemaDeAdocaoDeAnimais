@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">        
         <script src="{{ url('/bootstrap-4.4.1-dist/js/jquery-3.4.1.min.js') }}"></script>
         <script src="{{ url('/bootstrap-4.4.1-dist/js/bootstrap.min.js') }}"></script>
+        <script src="{{ url('/bootstrap-4.4.1-dist/js/jQuery-Mask-Plugin/dist/jquery.mask.min.js') }}"></script>
         <link rel="stylesheet" href="{{ url('/bootstrap-4.4.1-dist/css/bootstrap.min.css') }}">    
         <link rel="stylesheet" href="{{url('css/styleSite.css')}}">        
         <title>{{$cvTitlePage ?? ''}}</title>
@@ -22,14 +23,14 @@
                                 <a class="nav-link" href="{{route('Site.index')}}"> Home</a>
                             </li>    
                             @if(Auth::check())               
-                            @if(!is_null(Auth::user()->dados_adontante_id))        
+                            @if(!is_null(Auth::user()->dados_adotante_id))        
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('Site.adoteUmAnimal')}}"> Adotar um animal</a>
                             </li>  
                             @endif                            
                             @endif
                             @if(Auth::check())
-                            @if(is_null(Auth::user()->dados_adontante_id))
+                            @if(is_null(Auth::user()->dados_adotante_id))
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('Painel.index')}}"> Acessar painel de controle</a>
                             </li>                            

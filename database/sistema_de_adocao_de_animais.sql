@@ -23,7 +23,7 @@ CREATE TABLE tipos (
 
 CREATE TABLE users (
   id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  dados_adontante_id int NULL,
+  dados_adotante_id int NULL,
   name varchar(70) COLLATE utf8mb4_unicode_ci NOT NULL,
   email varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   email_verified_at timestamp NULL DEFAULT NULL,
@@ -80,9 +80,16 @@ ALTER TABLE pedido_adocao ADD CONSTRAINT fk_pedido_adocao_dados_adontante FOREIG
 ALTER TABLE pedido_adocao ADD CONSTRAINT fk_pedido_adocao_user FOREIGN KEY (user_id) REFERENCES user (id);
 
 /* Chave estrangeira da tabela de dados do adotantes na tabela users*/
-ALTER TABLE users ADD CONSTRAINT fk_users_dados_adontante FOREIGN KEY (dados_adontante_id) REFERENCES dados_adotante (id);
+ALTER TABLE users ADD CONSTRAINT fk_users_dados_adontante FOREIGN KEY (dados_adotante_id) REFERENCES dados_adotante (id);
 
 /* Inserts padroes de tipos de animais*/
 INSERT INTO tipos (nome) VALUES ('Cachorro');
 INSERT INTO tipos (nome) VALUES ('Gato');
+
+/* Usuário admin: 
+login: admin@gmail.com
+senha: 12345678
+*/
+INSERT INTO `users` (`id`, `dados_adotante_id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(NUll, NULL, 'Admin', 'admin@gmail.com', NULL, '$2y$10$tLYTXiUXtGzfxZBfU/gd7OMNUk5ZlbApjOmI/Vco5P3dL7Mt3TxvS', NULL, NULL, NULL);
 
