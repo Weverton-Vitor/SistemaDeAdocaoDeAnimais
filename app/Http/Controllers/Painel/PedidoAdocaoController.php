@@ -8,6 +8,7 @@ use App\Models\PedidoAdocao;
 use App\Models\Animal;
 use App\Models\DadosAdotante;
 use App\Http\Requests\FormRequestDadosPedidoAdocao;
+use Illuminate\Support\Facades\Auth;
 
 class PedidoAdocaoController extends Controller {
 
@@ -60,55 +61,73 @@ class PedidoAdocaoController extends Controller {
     public function store(Request $request) 
     {        
 
-        //Procedimentetos para cadastro manual de pedidos
+        if (is_null(Auth::user()->dados_adotante_id)) //Procedimentetos para cadastro manual de pedidos
+        {           
+            // Recuperando dados da sessão
+            $dataForm = $request->session()->all();      
+                        
+            //Dados do formulario hidden da página de seleção do animal
+            $dataForm['animal_id'] = $request->input('animal_id');     
+            $dataForm['situacao'] = "A";
+            $dataForm['data_pedido'] = date('Y-m-d');    
+    
+            $insertDadosAdotante = DadosAdotante::create($dataForm);
+            $dataForm['dados_adotante_id'] = $insertDadosAdotante->id; //Pegando o id dos dados do adotante        
+            $insertPedido = $this->model->create($dataForm);
 
-        // Recuperando dados da sessão
-        $dataForm = $request->session()->all();      
-        
-        
-        //Dados do formulario hidden da página de seleção do animal
-        $dataForm['animal_id'] = $request->input('animal_id');     
-        $dataForm['situacao'] = "A";
-        $dataForm['data_pedido'] = date('Y-m-d');    
-
-        $insertDadosAdotante = DadosAdotante::create($dataForm);
-        $dataForm['dados_adotante_id'] = $insertDadosAdotante->id; //Pegando o id dos dados do adotante        
-        $insertPedido = $this->model->create($dataForm);
-
-        // Procedimentos para cadastro pelo site com usuário logado
+        } else // Procedimentos para cadastro pelo site com usuário logado
+        {                                
+            $dataForm['animal_id'] = $request->input('animal_id');     
+            $dataForm['situacao'] = "P";               
+            $dataForm['data_pedido'] = date('Y-m-d');
+            $dataForm['user_id'] = Auth::user()->id; // Id do usuário
+            $dataForm['dados_adotante_id'] =Auth::user()->dados_adotante_id ; // Id dos dados do usuário            
+            $insertPedido = $this->model->create($dataForm);
+            $this->cvData['cvRoute'] = 'Site';
+        }
 
         $nNovosPedidos = count(PedidoAdocao::where('situacao', 'P')->get());
         $request->session()->put('nNovosPedidos', $nNovosPedidos);
         if ($insertPedido)
         {
-            // Mudando a situaçao de adoção do animal
-            $animal = Animal::find($dataForm['animal_id']);
-            $animal->situacao_adocao = "S";
-            $animal->save();
 
-            // Negando todos os pedidos do animal selecionado
-            $pedidos = PedidoAdocao::where('animal_id',  $dataForm['animal_id'])->get();
-            foreach ($pedidos as $pedido)
+            if (is_null(Auth::user()->dados_adotante_id)) //Procedimentetos para cadastro manual de pedidos
             {
-                if ($pedido->situacao == "P" && $pedido->id !=  $insertPedido->id)
+                // Mudando a situaçao de adoção do animal
+                $animal = Animal::find($dataForm['animal_id']);
+                $animal->situacao_adocao = "S";
+                $animal->save();                
+
+                // Negando todos os pedidos do animal selecionado
+                $pedidos = PedidoAdocao::where('animal_id',  $dataForm['animal_id'])->get();
+                foreach ($pedidos as $pedido)
                 {
-                    $pedido->situacao = "N";
-                    $pedido->save();
-                }
-            }                       
+                    if ($pedido->situacao == "P" && $pedido->id !=  $insertPedido->id)
+                    {
+                        $pedido->situacao = "N";
+                        $pedido->save();
+                    }
+                } 
+            }   
+            else
+            {
+                // Mudando a situaçao de adoção do animal para reservado
+                $animal = Animal::find($dataForm['animal_id']);
+                $animal->situacao_adocao = "R";
+                $animal->save();
+            }
+            
             // Apagando os dados da sessão
-            $request->session()->forget(['nome_adotante', 'cpf_adotante', 'email_adotante', 'telefone_adotante', 'cidade', 'cep', 'bairro', 'rua', 'numero_casa', 'informacoes_adicionais']);
-            $request->session()->flush();
+            $request->session()->forget(['nome_adotante', 'cpf_adotante', 'email_adotante', 'telefone_adotante', 'cidade', 'cep', 'bairro', 'rua', 'numero_casa', 'informacoes_adicionais']);            
 
             return redirect()->
                             route($this->cvData['cvRoute'] . '.index')->
                                               with('success', 'Sucesso ao registrar pedido de adoção');
-        }
-        else
+        } 
+        else        
         {            
             // Apagando os dados da sessão
-            $request->session()->forget(['nome_adotante', 'cpf_adotante', 'email_adotante', 'telefone_adotante', 'cidade', 'cep', 'bairro', 'rua', 'numero_casa', 'informacoes_adicionais']);
-            $request->session()->flush();
+            $request->session()->forget(['nome_adotante', 'cpf_adotante', 'email_adotante', 'telefone_adotante', 'cidade', 'cep', 'bairro', 'rua', 'numero_casa', 'informacoes_adicionais']);            
         }
             return redirect()->
                             route($this->cvData['cvRoute'] . '.create')->
@@ -212,14 +231,26 @@ class PedidoAdocaoController extends Controller {
     public function aceitarPedidoAdocao($id, Request $request)
     {        
         // Alterando a situação do pedido para aprovado
-        $pedido = $this->model->find($id);        
-        $pedido->situacao = "A";
-        $pedido->save();
+        $pedidoAceito = $this->model->find($id);        
+        $pedidoAceito->situacao = "A";
+        $pedidoAceito->save();
 
-        // Alteranp o situação de adoção do animal para adotado
-        $animal = Animal::find($pedido->animal_id);
+        // Alterano o situação de adoção do animal para adotado
+        $animal = Animal::find($pedidoAceito->animal_id);
         $animal->situacao_adocao = "S";
         $animal->save();
+
+        // Negando todos os pedidos do animal selecionado
+        $pedidos = PedidoAdocao::where('animal_id',  $animal->id)->get();
+        foreach ($pedidos as $pedido)
+        {
+            if ($pedido->situacao == "P" && $pedido->id !=  $pedidoAceito->id)
+            {
+                $pedido->situacao = "N";
+                $pedido->save();
+            }
+        } 
+
         $nNovosPedidos = count(PedidoAdocao::where('situacao', 'P')->get());
         $request->session()->put('nNovosPedidos', $nNovosPedidos);
 
@@ -237,6 +268,11 @@ class PedidoAdocaoController extends Controller {
         $pedido->save();
         $nNovosPedidos = count(PedidoAdocao::where('situacao', 'P')->get());
         $request->session()->put('nNovosPedidos', $nNovosPedidos);
+
+        // Alterano o situação de adoção do animal para não adotado
+        $animal = Animal::find($pedido->animal_id);
+        $animal->situacao_adocao = "N";
+        $animal->save();
 
         return redirect()->
                 route($this->cvData['cvRoute'] . '.index')->

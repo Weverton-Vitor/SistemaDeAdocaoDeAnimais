@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="card-footer" style="padding: 0px">
-            <form class="form" action="{{route($cvRoute.'.store')}}" method="post">
+            <form class="form" action="{{route('PedidosAdocao.store')}}" method="post">
                 {!! csrf_field() !!}
                 <input type="hidden" name="animal_id" value="{{$animal->id}}">
                 <button class="btn btn-secondary btn-selecionar">

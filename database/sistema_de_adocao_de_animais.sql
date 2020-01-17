@@ -77,7 +77,7 @@ ALTER TABLE pedido_adocao ADD CONSTRAINT fk_pedido_adocao_animal FOREIGN KEY (an
 ALTER TABLE pedido_adocao ADD CONSTRAINT fk_pedido_adocao_dados_adontante FOREIGN KEY (dados_adotante_id) REFERENCES dados_adotante (id);
 
 /* Chave estrangeira da tabela usuários na tabela de pedidos de adoção*/
-ALTER TABLE pedido_adocao ADD CONSTRAINT fk_pedido_adocao_user FOREIGN KEY (user_id) REFERENCES user (id);
+ALTER TABLE pedido_adocao ADD CONSTRAINT fk_pedido_adocao_user FOREIGN KEY (user_id) REFERENCES users (id);
 
 /* Chave estrangeira da tabela de dados do adotantes na tabela users*/
 ALTER TABLE users ADD CONSTRAINT fk_users_dados_adontante FOREIGN KEY (dados_adotante_id) REFERENCES dados_adotante (id);

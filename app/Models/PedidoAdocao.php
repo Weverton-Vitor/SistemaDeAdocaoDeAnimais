@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class PedidoAdocao extends Model
 {
     protected $table = 'pedido_adocao';
-    protected $fillable = ['data_pedido', 'situacao', 'informacoes_adicionais', 'dados_adotante_id', 'animal_id', 'updated_at', 'created_up'];
+    protected $fillable = ['user_id', 'data_pedido', 'situacao', 'informacoes_adicionais', 'dados_adotante_id', 'animal_id', 'updated_at', 'created_up'];
         
     public function animal()
     {
