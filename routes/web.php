@@ -10,7 +10,7 @@ Route::resource('Site', 'Site\SiteController');
 
 
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'CheckUser'])->group(function () {
     //Rotas para o painel em geral
     Route::get('usuario/cadastrar', 'Painel\PainelController@createUser')->name('Painel.createUser');
     Route::resource("Painel", "Painel\PainelController");
