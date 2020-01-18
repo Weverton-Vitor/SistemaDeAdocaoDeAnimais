@@ -43,7 +43,11 @@
     @endforeach
     <div class="row" style="margin-top: 15px">
         <div class="col-12">
+            @if(isset($activeIndexNovoPedido))
+            {{$pedidos->appends(['novosPedidos' => true])->links()}}
+            @else
             {{$pedidos->links()}}
+            @endif
         </div>
     </div>
 </div>
