@@ -30,8 +30,14 @@
                             <td> {{$animal->nome}} </td>
                             <td> {{$animal->peso . " Kg"}} </td>
                             <td> {{$animal->altura . " cm"}} </td>
-                            <td> {{$animal->tipo->nome}} </td>                        
-                            <td> {{$animal->situacao_adocao == "S" ? "Adotado": "Não adotado"}} </td>
+                            <td> {{$animal->tipo->nome}} </td>    
+                            @if($animal->situacao_adocao == "S")  
+                            <td> Adotado </td>
+                            @elseif($animal->situacao_adocao == "R")
+                            <td> Rerservado </td>
+                            @else
+                            <td> Não adotado </td>
+                            @endif
                             <td><center>
                                 <a href="{{route($cvRoute.'.show', $animal->id)}}">                                                
                                     <img src="{{url('icones/eye.svg')}}" title="Ver detalhes" class="iconeAcao">
