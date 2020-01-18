@@ -19,8 +19,8 @@ class PainelController extends Controller
         $this->cvData['totalPedidos'] = count(PedidoAdocao::all());    
         $this->cvData['nAnimaisAdotados'] = count(Animal::where('situacao_adocao', 'S')->get());
         $this->cvData['totalAnimais'] = count(Animal::all());
-        $this->cvData['nAnimaisAdotadosHoje'] = count(Animal::where('situacao_adocao', 'S')->raw('and where created_up = ' . date('Y-m-d'))->get());
-        $this->cvData['nNovosPedidosHoje'] = count(PedidoAdocao::where('data_pedido', date('Y-m-d'))->get());              
+        $this->cvData['nAnimaisAdotadosHoje'] = count(PedidoAdocao::where('data_aprovacao', date('Y-m-d'))->get());
+        $this->cvData['nNovosPedidosHoje'] = count(PedidoAdocao::where('data_pedido', date('Y-m-d'))->get());
         //dd(PedidoAdocao::where('situacao', 'P')->raw('and where data_pedido = ' . date('Y-m-d'))->get());
 
         $request->session()->put('nNovosPedidos', $this->cvData['nNovosPedidos']);

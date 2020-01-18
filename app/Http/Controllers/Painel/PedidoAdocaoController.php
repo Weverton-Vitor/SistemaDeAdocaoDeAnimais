@@ -229,10 +229,11 @@ class PedidoAdocaoController extends Controller {
 
     // Aceita o pedido de adoção
     public function aceitarPedidoAdocao($id, Request $request)
-    {        
+    {                
         // Alterando a situação do pedido para aprovado
         $pedidoAceito = $this->model->find($id);        
         $pedidoAceito->situacao = "A";
+        $pedidoAceito->data_aprovacao = date('Y-m-d');
         $pedidoAceito->save();
 
         // Alterano o situação de adoção do animal para adotado
