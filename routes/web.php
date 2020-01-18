@@ -30,6 +30,7 @@ Route::middleware(['auth', 'CheckUser'])->group(function () {
     Route::resource("PedidosAdocao", "Painel\PedidoAdocaoController");
 });
 
+
 // Sobreescrevendo rota store para possuir apenas o middleware auth
 Route::post('Registrar-pedido/', 'Painel\PedidoAdocaoController@store')->name('PedidosAdocao.store')->middleware('auth');
 

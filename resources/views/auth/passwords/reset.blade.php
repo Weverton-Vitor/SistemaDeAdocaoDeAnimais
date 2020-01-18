@@ -1,11 +1,16 @@
-@extends('layouts.app')
+@extends('Site.layoutSite')
 
-@section('content')
-<div class="container">
+@section('conteudo')
+<style>
+    body{
+        background-color:  #c09174;
+    }
+</style>
+<div class="container " style="padding-top: 100px;">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+            <div class="card box-login-register">
+                <div class="card-header text-center box-header-login-register">{{ __('Resetar senha') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('password.update') }}">
@@ -14,7 +19,7 @@
                         <input type="hidden" name="token" value="{{ $token }}">
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Endereço de email E-Mail') }}</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
@@ -51,8 +56,8 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password') }}
+                                <button type="submit" class="btn btn-secondary btn-login-register">
+                                    {{ __('Resetar senha') }}
                                 </button>
                             </div>
                         </div>

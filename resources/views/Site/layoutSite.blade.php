@@ -61,7 +61,7 @@
                         </ul>
                     </nav>
                 </div>
-                <div class="col-4" style="margin: auto;">
+                <div class="col-4" style="margin: auto;">                
                     <div class="float-right">
                         @if(Auth::check())
                         <p class="badge badge-secondary" style="font-size: 15px; background-color: #3c1800; padding: 15px; margin-top: 10px">Usuário: {{Auth::user()->name}}</p>
