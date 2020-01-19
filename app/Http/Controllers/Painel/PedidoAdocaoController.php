@@ -60,7 +60,10 @@ class PedidoAdocaoController extends Controller {
     // Efetua a cadastro de novos pedidos de adoção
     public function store(Request $request) 
     {        
-
+        $dataForm['data_pedido'] = date('Y-m-d'); //Data do pedido
+        //Data de validade do pedido
+        $dataForm['data_validade'] = date('Y-m-');
+        $dataForm['data_validade'] .= date('d')+3;        
         if (is_null(Auth::user()->dados_adotante_id)) //Procedimentetos para cadastro manual de pedidos
         {           
             // Recuperando dados da sessão
@@ -68,8 +71,7 @@ class PedidoAdocaoController extends Controller {
                         
             //Dados do formulario hidden da página de seleção do animal
             $dataForm['animal_id'] = $request->input('animal_id');     
-            $dataForm['situacao'] = "A";
-            $dataForm['data_pedido'] = date('Y-m-d');    
+            $dataForm['situacao'] = "A";              
     
             $insertDadosAdotante = DadosAdotante::create($dataForm);
             $dataForm['dados_adotante_id'] = $insertDadosAdotante->id; //Pegando o id dos dados do adotante        
@@ -78,8 +80,7 @@ class PedidoAdocaoController extends Controller {
         } else // Procedimentos para cadastro pelo site com usuário logado
         {                                
             $dataForm['animal_id'] = $request->input('animal_id');     
-            $dataForm['situacao'] = "P";               
-            $dataForm['data_pedido'] = date('Y-m-d');
+            $dataForm['situacao'] = "P";                           
             $dataForm['user_id'] = Auth::user()->id; // Id do usuário
             $dataForm['dados_adotante_id'] =Auth::user()->dados_adotante_id ; // Id dos dados do usuário            
             $insertPedido = $this->model->create($dataForm);
