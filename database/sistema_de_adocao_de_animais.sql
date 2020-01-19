@@ -40,6 +40,7 @@ CREATE TABLE pedido_adocao (
   dados_adotante_id int NUll COMMENT 'Para pedidos adicionados de forma manual',
   data_pedido date NOT NULL,
   data_aprovacao date NULL,
+  data_validade date NOT NUll,
   situacao char(3) NOT NULL COMMENT 'A = Aprovado\nN = Não aprovado\nP = Não analizado',
   informacoes_adicionais text NUll,
   updated_at timestamp NULL,
