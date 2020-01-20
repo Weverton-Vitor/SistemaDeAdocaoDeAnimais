@@ -32,7 +32,7 @@ class AnimalController extends Controller{
         $request->session()->put('nNovosPedidos', $nNovosPedidos);
         $this->cvData['activeAnimal'] = true;                 
         $this->cvData['nNovosPedidos'] = count($this->cvData['vcObjects'] = PedidoAdocao::where('situacao', 'P')->orderBy('data_pedido')->get());
-        $this->cvData['cvObjects'] = $this->model::orderBy('nome')->with('tipo')->paginate($this->total_page);  
+        $this->cvData['cvObjects'] = $this->model::orderBy('nome')->with('tipo')->paginate($this->total_page);
         return view($this->cvData['cvViewDirectory'] . '.index', $this->cvData);
     }
 
