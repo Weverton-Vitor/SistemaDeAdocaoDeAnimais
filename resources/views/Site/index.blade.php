@@ -13,19 +13,19 @@
         <!-- Imagens -->
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img class="img-home" src="{{url('/img/animais1.jpg')}}" alt="Los Angeles">                        
+                <img class="img-home" src="{{url('/img/animais1.jpg')}}">                        
                 <div class="carousel-caption legenda-img">
                     <h3>Faça o bem</h3>                           
                 </div>
             </div>
             <div class="carousel-item">
-                <img class="img-home" src="{{url('/img/animais3.jpg')}}" alt="New York">
+                <img class="img-home" src="{{url('/img/animais3.jpg')}}">
                 <div class="carousel-caption legenda-img">
                     <h3>Adote um animal</h3>                           
                 </div>
             </div>
             <div class="carousel-item">
-                <img class="img-home" src="{{url('/img/animais2.jpg')}}" alt="Chicago">
+                <img class="img-home" src="{{url('/img/animais2.jpg')}}">
                 <div class="carousel-caption legenda-img">
                     <h3>Tenha um companheiro(a)</h3>  
                 </div>
