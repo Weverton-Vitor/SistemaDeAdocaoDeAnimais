@@ -1,6 +1,6 @@
 @extends('Painel.layoutPainel')  
 @section('conteudo')                  
-    <!--Formulario para excluir vários aa-->
+    <!--Formulario para excluir vários -->
 <form action="{{route($cvRoute.'.destroyMany')}}" method="get">
     <div class="container-view bg-light borda-container" style="padding: 0px 15px 30px 15px;">
         <div class="row" style="padding: 10px; border-bottom: #bfbcbc 1px solid">
@@ -8,7 +8,7 @@
                 <a href="{{route($cvRoute.'.create')}}" class="btn btn-primary"> Novo animal</a>
             </div>
         </div>
-        <!--Linha do grid principal aaaaaaaannnnnnnnn-->
+        <!--Linha do grid principal-->
         <div class="row">
             <div class="col-12">
                 <table class="table table-striped tabela-index">
