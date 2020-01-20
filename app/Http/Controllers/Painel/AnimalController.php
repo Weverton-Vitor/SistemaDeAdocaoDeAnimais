@@ -27,12 +27,13 @@ class AnimalController extends Controller{
 
     // Grid para a admistração dos animais
     public function index(Request $request) 
-    {   
+    {           
         $nNovosPedidos = count(PedidoAdocao::where('situacao', 'P')->get());
         $request->session()->put('nNovosPedidos', $nNovosPedidos);
         $this->cvData['activeAnimal'] = true;                 
         $this->cvData['nNovosPedidos'] = count($this->cvData['vcObjects'] = PedidoAdocao::where('situacao', 'P')->orderBy('data_pedido')->get());
-        $this->cvData['cvObjects'] = $this->model::orderBy('nome')->with('tipo')->paginate($this->total_page);        return view($this->cvData['cvViewDirectory'] . '.index', $this->cvData);
+        $this->cvData['cvObjects'] = $this->model::orderBy('nome')->with('tipo')->paginate($this->total_page);  
+        return view($this->cvData['cvViewDirectory'] . '.index', $this->cvData);
     }
 
     // Redireciona para a pagina de cadastro

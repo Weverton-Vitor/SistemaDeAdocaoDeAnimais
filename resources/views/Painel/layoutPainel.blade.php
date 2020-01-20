@@ -29,7 +29,7 @@
                         @else
                         <li class="nav-item item ">
                         @endif
-                            <a class="nav-link text" href="{{route('Painel.index')}}">Página Inicial</a>
+                            <a class="nav-link text" href="{{route('Painel.index')}}">Página Inicial</a>                            
                         </li>
                         @if(isset($activeAnimal))
                         <li class="nav-item item itemAtivo">
