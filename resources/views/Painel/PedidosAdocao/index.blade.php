@@ -19,7 +19,7 @@
                 <p class="text">Email do adotante: {{$pedido->dadosAdotante->email_adotante}}</p>
                 <p class="text">Nome do Animal: {{$pedido->animal->nome}}</p>
                 <p class="text">Data do pedido: {{date("d/m/Y", (strtotime($pedido->data_pedido)))}}</p>
-                <p class="text">Data do pedido: {{date("d/m/Y", (strtotime($pedido->data_validade)))}}</p>
+                <p class="text">Data de validade do pedido: {{date("d/m/Y", (strtotime($pedido->data_validade)))}}</p>
             </div>
             <div class="col-5">
                 <div class="float-right" style="margin-top: 200px">
