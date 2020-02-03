@@ -27,6 +27,7 @@ class PedidoAdocaoController extends Controller {
     //
     public function index(Request $request) 
     {              
+        dd(date('Y-m-d'));        
         $nNovosPedidos = count(PedidoAdocao::where('situacao', 'P')->get());
         $request->session()->put('nNovosPedidos', $nNovosPedidos);
         if (!is_null($request->input('novosPedidos')))// Resgata apenas novos registros
