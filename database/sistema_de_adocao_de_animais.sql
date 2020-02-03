@@ -96,13 +96,13 @@ INSERT INTO `users` (`id`, `dados_adotante_id`, `name`, `email`, `email_verified
 (NUll, NULL, 'Admin', 'admin@gmail.com', NULL, '$2y$10$tLYTXiUXtGzfxZBfU/gd7OMNUk5ZlbApjOmI/Vco5P3dL7Mt3TxvS', NULL, NULL, NULL);
 
 
-/* Evento que nega pedidos fora da data de validade*/
+/* Evento que nega pedidos fora da data de validade
 CREATE EVENT excluir_pedido_fora_de_validade
    ON SCHEDULE
     EVERY 1 DAY
     STARTS (TIMESTAMP(CURRENT_DATE) + INTERVAL 23 HOUR)
     DO      
       UPDATE sistema_de_adocao_de_animais.pedido_adocao set pedido_adocao.situacao = "N" where pedido_adocao.data_validade = CURRENT_DATE and pedido_adocao.situacao = "P";        
-    
+*/
       
 
